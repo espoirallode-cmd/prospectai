@@ -69,25 +69,25 @@ const Landing = () => {
       {/* Hero */}
       <section className="pt-4 pb-0">
         <div className="w-full">
-          <div className="hero-custom-bg px-4 pt-10 pb-16 md:px-6 md:py-24 text-center overflow-hidden">
-            <div className="relative z-10 mx-auto max-w-4xl -mt-6 md:-mt-5">
+          <div className="hero-custom-bg px-4 pt-16 pb-16 md:px-6 md:py-24 text-center overflow-hidden">
+            <div className="relative z-10 mx-auto max-w-4xl -mt-2 md:-mt-5">
               {/* Small Badge */}
               <div className="inline-flex items-center gap-1.5 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-white text-primary mb-3 md:mb-4 animate-fade-in-up">
                 <Zap className="h-3 md:h-3.5 w-3 md:w-3.5 fill-primary" />
                 <span className="text-[9px] md:text-xs font-bold tracking-wider uppercase">Prospection, Closing & Automatisation</span>
               </div>
               
-              <h1 className="text-hero-title mb-2 animate-fade-in-up">
+              <h1 className="text-hero-title mb-1.5 animate-fade-in-up">
                 Trouve tes premiers clients <br className="hidden md:block" />
                 freelance en <span className="opacity-80">24h</span>
               </h1>
               
-              <p className="text-hero-sub mb-5 animate-fade-in-up-delay-1 px-4">
+              <p className="text-hero-sub mb-4 animate-fade-in-up-delay-1 px-4">
                 ProspectAI analyse les entreprises locales et détecte celles qui ont besoin de tes services. <br className="hidden md:block" />
                 Messages personnalisés, coaching closing — tout est automatisé.
               </p>
               
-              <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-center animate-fade-in-up-delay-2">
+              <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center animate-fade-in-up-delay-2">
                 <Link to="/login">
                   <Button size="default" className="h-9 md:h-10 px-4 md:px-5 text-[10px] md:text-xs font-bold rounded-xl bg-primary text-white border-0 shadow-lg hover:scale-105 transition-transform uppercase tracking-wider">
                     Découvrir mes opportunités
