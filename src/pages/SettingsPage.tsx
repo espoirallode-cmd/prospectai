@@ -302,7 +302,6 @@ const SettingsPage = () => {
                 { label: "Alertes nouveaux prospects urgents", defaultChecked: true },
                 { label: "Rappels de relance prospects", defaultChecked: false, extra: true },
                 { label: "Notifications par email", defaultChecked: true },
-                { label: "Notifications dans l'application", defaultChecked: true },
               ].map((n, i) => (
                 <div key={i} className="flex items-center justify-between p-4 rounded-2xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
                   <div className="space-y-1">
