@@ -256,22 +256,24 @@ const SettingsView = () => {
             </div>
           </div>
 
-          <Button 
-            onClick={() => handleSave("profile")} 
-            disabled={isSaving === "profile"}
-            className="bg-[#6366F1] hover:bg-[#8B5CF6] text-white font-bold px-8 py-6 rounded-2xl transition-all shadow-lg shadow-indigo-500/20 disabled:opacity-50 min-w-[240px]"
-          >
-            {isSaving === "profile" ? (
-              <span className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                Enregistrement...
-              </span>
-            ) : (
-              <span className="flex items-center gap-2">
-                <Save className="h-5 w-5" /> Enregistrer les modifications
-              </span>
-            )}
-          </Button>
+          <div className="flex justify-center md:justify-start mt-6 md:mt-0">
+            <Button 
+              onClick={() => handleSave("profile")} 
+              disabled={isSaving === "profile"}
+              className="bg-[#6366F1] hover:bg-[#8B5CF6] text-white font-bold px-8 py-6 rounded-2xl transition-all shadow-lg shadow-indigo-500/20 disabled:opacity-50 w-full md:w-auto min-w-[240px]"
+            >
+              {isSaving === "profile" ? (
+                <span className="flex items-center gap-2 justify-center">
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Enregistrement...
+                </span>
+              ) : (
+                <span className="flex items-center gap-2 justify-center">
+                  <Save className="h-5 w-5" /> Enregistrer les modifications
+                </span>
+              )}
+            </Button>
+          </div>
         </div>
       </section>
 
