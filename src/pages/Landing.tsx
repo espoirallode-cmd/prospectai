@@ -69,7 +69,7 @@ const Landing = () => {
       {/* Hero */}
       <section className="pt-4 pb-0">
         <div className="w-full">
-          <div className="hero-custom-bg px-4 pt-10 pb-32 md:px-6 md:py-24 text-center overflow-hidden">
+          <div className="hero-custom-bg px-4 pt-10 pb-16 md:px-6 md:py-24 text-center overflow-hidden">
             <div className="relative z-10 mx-auto max-w-4xl -mt-6 md:-mt-5">
               {/* Small Badge */}
               <div className="inline-flex items-center gap-1.5 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-white text-primary mb-3 md:mb-4 animate-fade-in-up">
