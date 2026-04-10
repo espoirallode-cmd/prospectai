@@ -138,7 +138,7 @@ const Onboarding = () => {
   return (
     <div className="min-h-screen bg-[#f8fafc] py-12 px-4 relative overflow-hidden">
       {/* Global Back Button in Corner */}
-      <div className="absolute top-8 left-8 z-50">
+      <div className="hidden md:block absolute top-8 left-8 z-50">
         <Button 
           variant="ghost" 
           onClick={() => navigate("/dashboard")}

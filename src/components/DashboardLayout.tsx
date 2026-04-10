@@ -133,7 +133,7 @@ const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactN
                 variant="ghost" 
                 size="sm" 
                 onClick={() => onBack ? onBack() : navigate(-1)}
-                className="bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white rounded-xl px-4 py-2 h-9 flex items-center gap-2 hover:opacity-90 transition-all shadow-lg shadow-indigo-500/20 border-0"
+                className="bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white rounded-xl px-4 py-2 h-9 hidden md:flex items-center gap-2 hover:opacity-90 transition-all shadow-lg shadow-indigo-500/20 border-0"
               >
                 <ArrowLeft className="h-4 w-4" />
                 <span className="text-xs font-bold">Retour</span>

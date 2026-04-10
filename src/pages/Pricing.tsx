@@ -21,7 +21,7 @@ const Pricing = () => {
       <div className="container mx-auto px-4 py-12">
         <button 
           onClick={() => navigate(-1)} 
-          className="inline-flex items-center gap-2 text-sm font-bold text-[#6366F1] hover:opacity-80 mb-12 transition-all"
+          className="hidden md:inline-flex items-center gap-2 text-sm font-bold text-[#6366F1] hover:opacity-80 mb-12 transition-all"
         >
           <ArrowLeft className="h-4 w-4" /> Retour
         </button>
