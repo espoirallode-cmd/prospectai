@@ -141,7 +141,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex h-screen bg-[#0a0a0f] text-white overflow-hidden">
+    <div className="flex fixed inset-0 bg-[#0a0a0f] text-white overflow-hidden">
       {/* Sidebar - PC Only */}
       <aside className="hidden md:flex w-64 bg-[#1a0533] flex-col border-r border-white/5">
         <div className="h-16 flex items-center gap-2 px-6 border-b border-white/5">
@@ -285,9 +285,9 @@ const Dashboard = () => {
                 <Link to="/onboarding">
                   <Button 
                     size="lg" 
-                    className="h-12 md:h-16 px-6 md:px-10 rounded-xl md:rounded-2xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:scale-105 transition-all duration-300 font-bold text-sm md:text-lg shadow-[0_0_30px_-10px_rgba(99,102,241,0.5)] md:shadow-[0_0_40px_-10px_rgba(99,102,241,0.5)] border-0 whitespace-normal h-auto py-3 md:py-0"
+                    className="h-12 md:h-16 px-3 md:px-10 rounded-xl md:rounded-2xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:scale-105 transition-all duration-300 font-bold text-[11px] md:text-lg shadow-[0_0_30px_-10px_rgba(99,102,241,0.5)] md:shadow-[0_0_40px_-10px_rgba(99,102,241,0.5)] border-0 whitespace-nowrap h-auto py-3 md:py-0"
                   >
-                    <Rocket className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6 shrink-0" />
+                    <Rocket className="mr-2 md:mr-3 h-4 w-4 md:h-6 md:w-6 shrink-0" />
                     <span className="leading-tight">Commencer ma recherche de prospects</span>
                   </Button>
                 </Link>
