@@ -151,8 +151,8 @@ const Landing = () => {
       <section className="border-y bg-muted/30">
         <div className="container mx-auto grid grid-cols-3 gap-4 md:gap-8 px-2 md:px-4 py-12 md:py-16 text-center">
           {[
-            { value: "Plus de 2 400", label: "Freelancers actifs" },
-            { value: "Plus de 18 000", label: "Perspectives trouvées" },
+            { value: "Plus de 2,400", label: "Freelancers actifs" },
+            { value: "Plus de 18,000", label: "Prospects trouvés" },
             { value: "34%", label: "Taux de réponse moyen" },
           ].map((s) => (
             <div key={s.label} className="flex flex-col items-center">
