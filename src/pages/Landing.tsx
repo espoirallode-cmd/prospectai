@@ -69,12 +69,12 @@ const Landing = () => {
       {/* Hero */}
       <section className="pt-4 pb-0">
         <div className="w-full">
-          <div className="hero-custom-bg px-2 pt-6 pb-20 md:px-6 md:py-24 text-center overflow-hidden">
-            <div className="relative z-10 mx-auto max-w-4xl pt-0 md:pt-0 -mt-2 md:-mt-5">
+          <div className="hero-custom-bg px-2 pt-10 pb-20 md:px-6 md:py-24 text-center overflow-hidden">
+            <div className="relative z-10 mx-auto max-w-4xl pt-0 md:pt-0 mt-0 md:-mt-5">
               {/* Small Badge */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-white text-primary mb-3 md:mb-4 animate-fade-in-up">
-                <Zap className="h-3 md:h-3.5 w-3 md:w-3.5 fill-primary" />
-                <span className="text-[9px] md:text-xs font-bold tracking-wider uppercase">Prospection, Closing & Automatisation</span>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 md:px-4 md:py-1.5 rounded-full bg-white text-primary mb-3 md:mb-4 animate-fade-in-up">
+                <Zap className="h-2.5 md:h-3.5 w-2.5 md:w-3.5 fill-primary" />
+                <span className="text-[7.5px] md:text-xs font-bold tracking-wider uppercase">Prospection, Closing & Automatisation</span>
               </div>
               
               <h1 className="text-hero-title mb-1.5 animate-fade-in-up">
@@ -82,7 +82,7 @@ const Landing = () => {
                 freelance en <span className="opacity-80">24h</span>
               </h1>
               
-              <p className="text-hero-sub mb-4 animate-fade-in-up-delay-1 px-4">
+              <p className="text-hero-sub mb-1.5 animate-fade-in-up-delay-1 px-4">
                 <span className="md:hidden">
                   ProspectAI analyse les entreprises locales et détecte celles <br />
                   qui ont besoin de tes services. Messages personnalisés, <br />
