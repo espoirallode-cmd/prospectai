@@ -55,6 +55,7 @@ const getResponse = (msg: string): string => {
 const Dashboard = () => {
   const navigate = useNavigate();
   const [currentView, setCurrentView] = useState<"accueil" | "coach" | "settings" | "prospects">("accueil");
+  const [showMobileProfile, setShowMobileProfile] = useState(false);
 
   // Handle URL view parameter
   useEffect(() => {
@@ -141,8 +142,8 @@ const Dashboard = () => {
 
   return (
     <div className="flex h-screen bg-[#0a0a0f] text-white overflow-hidden">
-      {/* Sidebar */}
-      <aside className="w-64 bg-[#1a0533] flex flex-col border-r border-white/5">
+      {/* Sidebar - PC Only */}
+      <aside className="hidden md:flex w-64 bg-[#1a0533] flex-col border-r border-white/5">
         <div className="h-16 flex items-center gap-2 px-6 border-b border-white/5">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#6366F1] to-[#8B5CF6]">
             <Zap className="h-4 w-4 text-white" />
@@ -191,76 +192,120 @@ const Dashboard = () => {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Navbar */}
-        <header className="h-16 bg-[#0a0a0f] border-b border-white/5 flex items-center justify-between px-8 shrink-0">
+        <header className="h-16 bg-[#0a0a0f] border-b border-white/5 flex items-center justify-between px-4 md:px-8 shrink-0 relative z-30">
           <button 
             onClick={() => setCurrentView("accueil")}
-            className="flex items-center gap-2 text-white/40 hover:text-white transition-colors"
+            className="hidden md:flex items-center gap-2 text-white/40 hover:text-white transition-colors"
           >
             <Home className="h-4 w-4" />
             <span className="text-xs">/ {getViewTitle()}</span>
           </button>
           
+          {/* Mobile Logo */}
+          <div className="flex md:hidden items-center gap-2">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-[#6366F1] to-[#8B5CF6]">
+              <Zap className="h-3.5 w-3.5 text-white" />
+            </div>
+            <span className="font-bold text-base tracking-tight text-white">ProspectAI</span>
+          </div>
+          
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3 pr-4 border-r border-white/10">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] text-xs font-bold ring-2 ring-white/10 overflow-hidden">
+            {/* PC Profile view */}
+            <div className="hidden md:flex items-center gap-4">
+              <div className="flex items-center gap-3 pr-4 border-r border-white/10">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] text-xs font-bold ring-2 ring-white/10 overflow-hidden">
+                  {user.photo ? (
+                    <img src={user.photo} alt="Profil" className="w-full h-full object-cover" />
+                  ) : (
+                    getInitials()
+                  )}
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium leading-none mb-1">{user.firstName} {user.lastName}</span>
+                  <span className="text-[10px] text-white/40 leading-none">{user.email}</span>
+                </div>
+              </div>
+              
+              <button 
+                onClick={handleLogout}
+                className="flex items-center gap-2 text-xs font-medium text-red-500 hover:text-red-400 transition-colors"
+              >
+                <LogOut className="h-4 w-4" />
+                <span>Se déconnecter</span>
+              </button>
+            </div>
+
+            {/* Mobile Profile Avartar Toggle */}
+            <div className="md:hidden relative">
+              <button 
+                onClick={() => setShowMobileProfile(!showMobileProfile)}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] text-[10px] font-bold ring-2 ring-white/10 overflow-hidden focus:outline-none"
+              >
                 {user.photo ? (
                   <img src={user.photo} alt="Profil" className="w-full h-full object-cover" />
                 ) : (
                   getInitials()
                 )}
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-medium leading-none mb-1">{user.firstName} {user.lastName}</span>
-                <span className="text-[10px] text-white/40 leading-none">{user.email}</span>
-              </div>
+              </button>
+              
+              {/* Dropdown Menu Mobile */}
+              {showMobileProfile && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setShowMobileProfile(false)} />
+                  <div className="absolute right-0 top-full mt-3 w-56 rounded-xl border border-white/10 bg-[#1a0533] p-2 shadow-2xl z-50 animate-fade-in-up">
+                    <div className="px-3 py-2 border-b border-white/10 mb-1">
+                      <p className="text-xs text-white/50 break-words">{user.email}</p>
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-2 px-3 py-2.5 text-xs font-medium text-red-500 hover:bg-white/5 rounded-lg transition-colors"
+                    >
+                      <LogOut className="h-3.5 w-3.5" />
+                      <span>Se déconnecter</span>
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
-            
-            <button 
-              onClick={handleLogout}
-              className="flex items-center gap-2 text-xs font-medium text-red-500 hover:text-red-400 transition-colors"
-            >
-              <LogOut className="h-4 w-4" />
-              <span>Se déconnecter</span>
-            </button>
           </div>
         </header>
 
         {/* Content Switcher */}
         <main className="flex-1 overflow-y-auto overflow-x-hidden">
           {currentView === "accueil" && (
-            <div className="min-h-full p-12 flex flex-col items-center justify-center text-center">
-              <div className="max-w-3xl animate-fade-in">
-                <h1 className="text-5xl font-extrabold mb-4 tracking-tight">
+            <div className="min-h-full p-6 md:p-12 flex flex-col items-center justify-center text-center">
+              <div className="max-w-3xl animate-fade-in mt-10 md:mt-0">
+                <h1 className="text-3xl md:text-5xl font-extrabold mb-3 md:mb-4 tracking-tight">
                   Bonjour {user.firstName} {user.lastName} ! 👋
                 </h1>
-                <p className="text-xl text-white/50 mb-12 font-medium">
+                <p className="text-sm md:text-xl text-white/50 mb-8 md:mb-12 font-medium">
                   Prêt à trouver tes premiers clients freelance aujourd'hui ?
                 </p>
 
                 <Link to="/onboarding">
                   <Button 
                     size="lg" 
-                    className="h-16 px-10 rounded-2xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:scale-105 transition-all duration-300 font-bold text-lg shadow-[0_0_40px_-10px_rgba(99,102,241,0.5)] border-0"
+                    className="h-12 md:h-16 px-6 md:px-10 rounded-xl md:rounded-2xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:scale-105 transition-all duration-300 font-bold text-sm md:text-lg shadow-[0_0_30px_-10px_rgba(99,102,241,0.5)] md:shadow-[0_0_40px_-10px_rgba(99,102,241,0.5)] border-0 whitespace-normal h-auto py-3 md:py-0"
                   >
-                    <Rocket className="mr-3 h-6 w-6" />
-                    Commencer ma recherche de prospects
+                    <Rocket className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6 shrink-0" />
+                    <span className="leading-tight">Commencer ma recherche de prospects</span>
                   </Button>
                 </Link>
 
-                <div className="grid grid-cols-2 gap-6 mt-20 w-full max-w-xl mx-auto">
+                <div className="grid grid-cols-2 gap-4 md:gap-6 mt-16 md:mt-20 w-full max-w-xl mx-auto">
                   {[
                     { label: "Messages générés", value: "0", icon: MessageSquare },
                     { label: "Clients contactés", value: "0", icon: UserPlus },
                   ].map((stat, i) => (
                     <div 
                       key={i} 
-                      className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all group"
+                      className="bg-white/5 border border-white/10 rounded-2xl p-4 md:p-6 hover:bg-white/10 transition-all group"
                     >
-                      <div className="flex justify-center mb-3">
-                        <stat.icon className="h-5 w-5 text-[#6366F1] group-hover:scale-110 transition-transform" />
+                      <div className="flex justify-center mb-2 md:mb-3">
+                        <stat.icon className="h-4 w-4 md:h-5 md:w-5 text-[#6366F1] group-hover:scale-110 transition-transform" />
                       </div>
-                      <div className="text-2xl font-bold mb-1">{stat.value}</div>
-                      <div className="text-[10px] text-white/40 uppercase tracking-widest font-bold">
+                      <div className="text-lg md:text-2xl font-bold mb-1">{stat.value}</div>
+                      <div className="text-[9px] md:text-[10px] text-white/40 uppercase tracking-widest font-bold">
                         {stat.label}
                       </div>
                     </div>
@@ -330,24 +375,24 @@ const Dashboard = () => {
           )}
 
           {currentView === "coach" && (
-            <div className="h-full p-8 flex flex-col max-w-4xl mx-auto animate-fade-in">
-              <div className="flex-1 flex flex-col overflow-hidden bg-white/5 rounded-3xl border border-white/10 p-6">
-                <div className="mb-6">
-                  <h2 className="text-2xl font-bold flex items-center gap-2">
-                    <Bot className="text-[#6366F1]" /> Coach IA Privé
+            <div className="h-full p-4 md:p-8 flex flex-col max-w-4xl mx-auto animate-fade-in">
+              <div className="flex-1 flex flex-col overflow-hidden bg-white/5 rounded-2xl md:rounded-3xl border border-white/10 p-4 md:p-6">
+                <div className="mb-4 md:mb-6">
+                  <h2 className="text-lg md:text-2xl font-bold flex items-center gap-2">
+                    <Bot className="text-[#6366F1] h-5 w-5 md:h-6 md:w-6" /> Coach IA Privé
                   </h2>
-                  <p className="text-white/40 text-sm">Pose tes questions avant de lancer ta recherche</p>
+                  <p className="text-white/40 text-xs md:text-sm">Pose tes questions avant de lancer ta recherche</p>
                 </div>
 
-                <div className="flex-1 overflow-y-auto pr-2 space-y-4 mb-6 custom-scrollbar" ref={scrollRef}>
+                <div className="flex-1 overflow-y-auto pr-2 space-y-4 mb-4 md:mb-6 custom-scrollbar" ref={scrollRef}>
                   {messages.map((msg, i) => (
-                    <div key={i} className={`flex gap-4 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
-                      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl ${
+                    <div key={i} className={`flex gap-3 md:gap-4 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
+                      <div className={`flex h-8 w-8 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-xl md:rounded-2xl ${
                         msg.role === "assistant" ? "bg-gradient-to-br from-[#6366F1] to-[#8B5CF6]" : "bg-white/10"
                       }`}>
-                        {msg.role === "assistant" ? <Bot className="h-5 w-5" /> : <UserIcon className="h-5 w-5" />}
+                        {msg.role === "assistant" ? <Bot className="h-4 w-4 md:h-5 md:w-5" /> : <UserIcon className="h-4 w-4 md:h-5 md:w-5" />}
                       </div>
-                      <div className={`max-w-[75%] px-5 py-4 rounded-2xl text-sm leading-relaxed ${
+                      <div className={`max-w-[85%] md:max-w-[75%] px-4 py-3 md:px-5 md:py-4 rounded-xl md:rounded-2xl text-[13px] md:text-sm leading-relaxed ${
                         msg.role === "user" ? "bg-[#6366F1] text-white" : "bg-white/10 text-white/90"
                       }`}>
                         <p className="whitespace-pre-line">{msg.content}</p>
@@ -355,11 +400,11 @@ const Dashboard = () => {
                     </div>
                   ))}
                   {isTyping && (
-                    <div className="flex gap-4">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#6366F1] to-[#8B5CF6]">
-                        <Bot className="h-5 w-5" />
+                    <div className="flex gap-3 md:gap-4">
+                      <div className="flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-xl md:rounded-2xl bg-gradient-to-br from-[#6366F1] to-[#8B5CF6]">
+                        <Bot className="h-4 w-4 md:h-5 md:w-5" />
                       </div>
-                      <div className="bg-white/10 px-5 py-4 rounded-2xl">
+                      <div className="bg-white/10 px-4 py-3 md:px-5 md:py-4 rounded-xl md:rounded-2xl">
                         <div className="flex gap-1.5">
                           <div className="w-1.5 h-1.5 rounded-full bg-white/40 animate-bounce" style={{ animationDelay: "0ms" }} />
                           <div className="w-1.5 h-1.5 rounded-full bg-white/40 animate-bounce" style={{ animationDelay: "200ms" }} />
@@ -370,34 +415,34 @@ const Dashboard = () => {
                   )}
                 </div>
 
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4">
                   {quickActions.map((action, i) => (
                     <button
                       key={i}
                       onClick={() => sendCoachMessage(action.prompt)}
-                      className="px-4 py-2 rounded-xl border border-white/5 bg-white/5 text-xs text-white/60 hover:text-white hover:bg-[#6366F1]/20 hover:border-[#6366F1]/50 transition-all flex items-center gap-2"
+                      className="whitespace-nowrap px-3 md:px-4 py-1.5 md:py-2 rounded-lg md:rounded-xl border border-white/5 bg-white/5 text-[10px] md:text-xs text-white/60 hover:text-white hover:bg-[#6366F1]/20 hover:border-[#6366F1]/50 transition-all flex items-center gap-1.5"
                     >
-                      <Sparkles className="h-3 w-3 text-[#6366F1]" />
+                      <Sparkles className="h-2.5 w-2.5 md:h-3 md:w-3 text-[#6366F1]" />
                       {action.label}
                     </button>
                   ))}
                 </div>
 
-                <div className="flex gap-3">
+                <div className="flex shrink-0">
                   <div className="flex-1 relative group">
                     <Input
                       placeholder="Comment trouver mes premiers clients ?"
                       value={coachInput}
                       onChange={(e) => setCoachInput(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && sendCoachMessage(coachInput)}
-                      className="h-14 bg-white/5 border-white/10 rounded-2xl pl-6 pr-14 focus:ring-[#6366F1]/30 transition-all text-white placeholder:text-white/20"
+                      className="h-12 md:h-14 bg-white/5 border-white/10 rounded-xl md:rounded-2xl pl-4 md:pl-6 pr-12 md:pr-14 focus:ring-[#6366F1]/30 transition-all text-white placeholder:text-[10px] md:placeholder:text-sm placeholder:text-white/20 text-xs md:text-sm"
                     />
                     <button 
                       onClick={() => sendCoachMessage(coachInput)}
-                      className="absolute right-3 top-2 flex h-10 w-10 items-center justify-center rounded-xl bg-[#6366F1] text-white hover:opacity-90 transition-opacity disabled:opacity-30"
+                      className="absolute right-2 top-1.5 md:top-2 flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-lg md:rounded-xl bg-[#6366F1] text-white hover:opacity-90 transition-opacity disabled:opacity-30"
                       disabled={!coachInput.trim()}
                     >
-                      <Send className="h-5 w-5" />
+                      <Send className="h-4 w-4 md:h-5 md:w-5" />
                     </button>
                   </div>
                 </div>
@@ -407,6 +452,41 @@ const Dashboard = () => {
 
           {currentView === "settings" && <SettingsView />}
         </main>
+
+        {/* Bottom Navigation for Mobile */}
+        <nav className="md:hidden flex items-center justify-around bg-[#1a0533] border-t border-white/5 pb-safe pt-2 px-2 shrink-0 h-[68px] z-50 sticky bottom-0">
+          <button 
+            onClick={() => setCurrentView("accueil")}
+            className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full ${currentView === "accueil" ? "text-[#6366F1]" : "text-white/40 hover:text-white/80"}`}
+          >
+            <Home className="h-5 w-5 mb-1" />
+            <span className="text-[10px] font-medium">Accueil</span>
+          </button>
+          
+          <button 
+            onClick={() => setCurrentView("coach")}
+            className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full ${currentView === "coach" ? "text-[#6366F1]" : "text-white/40 hover:text-white/80"}`}
+          >
+            <Bot className="h-5 w-5 mb-1" />
+            <span className="text-[10px] font-medium">Coach IA</span>
+          </button>
+          
+          <Link 
+            to="#"
+            className="flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full text-white/40 hover:text-white/80"
+          >
+            <HelpCircle className="h-5 w-5 mb-1" />
+            <span className="text-[10px] font-medium">Assistance</span>
+          </Link>
+          
+          <button 
+            onClick={() => setCurrentView("settings")}
+            className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full ${currentView === "settings" ? "text-[#6366F1]" : "text-white/40 hover:text-white/80"}`}
+          >
+            <Settings className="h-5 w-5 mb-1" />
+            <span className="text-[10px] font-medium">Paramètres</span>
+          </button>
+        </nav>
       </div>
     </div>
   );
