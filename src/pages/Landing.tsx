@@ -156,7 +156,7 @@ const Landing = () => {
             { value: "34%", label: "Taux de réponse moyen" },
           ].map((s) => (
             <div key={s.label} className="flex flex-col items-center">
-              <p className="text-lg md:text-4xl font-extrabold text-gradient leading-tight h-auto md:h-12 flex items-center justify-center">
+              <p className="text-[13px] md:text-3xl font-extrabold text-gradient whitespace-nowrap leading-tight h-auto md:h-12 flex items-center justify-center">
                 {s.value}
               </p>
               <p className="mt-2 text-[10px] md:text-sm text-muted-foreground font-medium max-w-[80px] leading-tight">
