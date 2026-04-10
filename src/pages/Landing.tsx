@@ -69,7 +69,7 @@ const Landing = () => {
       {/* Hero */}
       <section className="pt-4 pb-0">
         <div className="w-full">
-          <div className="hero-custom-bg px-2 pt-10 pb-20 md:px-6 md:py-24 text-center overflow-hidden">
+          <div className="hero-custom-bg px-2 pt-10 pb-12 md:px-6 md:py-24 text-center overflow-hidden">
             <div className="relative z-10 mx-auto max-w-4xl pt-0 md:pt-0 mt-0 md:-mt-5">
               {/* Small Badge */}
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 md:px-4 md:py-1.5 rounded-full bg-white text-primary mb-3 md:mb-4 animate-fade-in-up">
@@ -126,7 +126,7 @@ const Landing = () => {
       </section>
 
       {/* Value Props */}
-      <section id="features" className="container mx-auto px-4 py-16">
+      <section id="features" className="container mx-auto px-4 py-10 md:py-16">
         <div className="grid gap-8 md:grid-cols-3">
           {[
             { icon: MapPin, title: "Vrais prospects locaux", desc: "Des entreprises réelles près de chez toi, analysées par notre IA pour détecter leurs besoins." },
