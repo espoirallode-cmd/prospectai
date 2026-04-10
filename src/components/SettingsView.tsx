@@ -352,25 +352,25 @@ const SettingsView = () => {
       </section>
 
       {/* Section 4 — Abonnement & facturation */}
-      <section className="bg-[#1a1a2e] rounded-3xl border border-[#6366F1]/20 p-8 shadow-xl">
-        <h2 className="text-xl font-bold flex items-center gap-3 mb-8 text-white">
-          <CreditCard className="text-[#6366F1] h-6 w-6" /> Abonnement & facturation
+      <section className="bg-[#1a1a2e] rounded-3xl border border-[#6366F1]/20 p-5 md:p-8 shadow-xl">
+        <h2 className="text-[16px] md:text-xl font-bold flex items-center gap-2 md:gap-3 mb-6 md:mb-8 text-white whitespace-nowrap">
+          <CreditCard className="text-[#6366F1] h-5 w-5 md:h-6 md:w-6 shrink-0" /> Abonnement & facturation
         </h2>
 
-        <div className="space-y-8">
-          <div className="flex items-center justify-between p-6 bg-white/5 rounded-3xl border border-white/10">
-            <div className="space-y-1">
-              <h3 className="text-sm text-white/40 font-bold uppercase tracking-widest px-2">Plan actuel</h3>
-              <Badge className={`px-4 py-1.5 rounded-full text-xs font-bold ${user.plan === "Freemium" ? "bg-gray-500" : "bg-gradient-to-r from-[#6366F1] to-[#8B5CF6]"}`}>
+        <div className="space-y-6 md:space-y-8">
+          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between p-4 md:p-6 bg-white/5 rounded-2xl md:rounded-3xl border border-white/10 gap-5 md:gap-0">
+            <div className="space-y-1.5 flex flex-col items-center md:items-start w-full md:w-auto">
+              <h3 className="text-xs md:text-sm text-white/40 font-bold uppercase tracking-widest px-2">Plan actuel</h3>
+              <Badge className={`px-4 py-2 md:py-1.5 rounded-xl md:rounded-full text-[11px] md:text-xs font-bold w-full md:w-auto justify-center ${user.plan === "Freemium" ? "bg-gray-500" : "bg-gradient-to-r from-[#6366F1] to-[#8B5CF6]"}`}>
                 {user.plan}
               </Badge>
             </div>
             {user.plan === "Freemium" && (
-              <div className="flex gap-3">
-                <Button className="bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-bold h-12 px-6 rounded-xl hover:opacity-90 shadow-lg shadow-indigo-500/20">
+              <div className="flex flex-col md:flex-row gap-2.5 md:gap-3 w-full md:w-auto">
+                <Button className="w-full md:w-auto bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-bold h-10 md:h-12 px-4 md:px-6 rounded-xl hover:opacity-90 shadow-md md:shadow-lg shadow-indigo-500/20 text-[10px] md:text-sm whitespace-nowrap">
                   Passer PRO — 5 000 FCFA/mois
                 </Button>
-                <Button className="bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-bold h-12 px-6 rounded-xl hover:opacity-90 shadow-lg shadow-indigo-500/20">
+                <Button className="w-full md:w-auto bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-bold h-10 md:h-12 px-4 md:px-6 rounded-xl hover:opacity-90 shadow-md md:shadow-lg shadow-indigo-500/20 text-[10px] md:text-sm whitespace-nowrap">
                   Offre Premium — 10 000 FCFA/mois
                 </Button>
               </div>
