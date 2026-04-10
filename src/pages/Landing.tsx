@@ -149,15 +149,19 @@ const Landing = () => {
 
       {/* Social Proof */}
       <section className="border-y bg-muted/30">
-        <div className="container mx-auto grid grid-cols-3 gap-8 px-4 py-16 text-center">
+        <div className="container mx-auto grid grid-cols-3 gap-4 md:gap-8 px-2 md:px-4 py-12 md:py-16 text-center">
           {[
-            { value: "2,400+", label: "Freelancers actifs" },
-            { value: "18,000+", label: "Prospects trouvés" },
+            { value: "Plus de 2 400", label: "Freelancers actifs" },
+            { value: "Plus de 18 000", label: "Perspectives trouvées" },
             { value: "34%", label: "Taux de réponse moyen" },
           ].map((s) => (
-            <div key={s.label}>
-              <p className="text-3xl font-extrabold text-gradient md:text-4xl">{s.value}</p>
-              <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
+            <div key={s.label} className="flex flex-col items-center">
+              <p className="text-lg md:text-4xl font-extrabold text-gradient leading-tight h-auto md:h-12 flex items-center justify-center">
+                {s.value}
+              </p>
+              <p className="mt-2 text-[10px] md:text-sm text-muted-foreground font-medium max-w-[80px] leading-tight">
+                {s.label}
+              </p>
             </div>
           ))}
         </div>
