@@ -190,22 +190,8 @@ const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactN
           </header>
           <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 md:p-6 pb-24 md:pb-6">{children}</main>
 
-          {/* Bottom Navigation for Mobile */}
+          {/* Bottom Navigation for Mobile - uniquement Messages et Coach IA */}
           <nav className="md:hidden flex items-center justify-around bg-[#1a0533] border-t border-white/5 pb-safe pt-2 px-2 shrink-0 h-[68px] z-50 sticky bottom-0">
-            <Link 
-              to="/dashboard"
-              className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full text-white/40 hover:text-white/80`}
-            >
-              <Zap className="h-5 w-5 mb-1" />
-              <span className="text-[10px] font-medium">Accueil</span>
-            </Link>
-            <Link 
-              to="/prospects"
-              className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full ${location.pathname === '/prospects' ? "text-[#6366F1]" : "text-white/40 hover:text-white/80"}`}
-            >
-              <Target className="h-5 w-5 mb-1" />
-              <span className="text-[10px] font-medium">Prospects</span>
-            </Link>
             <Link 
               to="/messages"
               className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full ${location.pathname === '/messages' ? "text-[#6366F1]" : "text-white/40 hover:text-white/80"}`}
@@ -219,13 +205,6 @@ const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactN
             >
               <Bot className="h-5 w-5 mb-1" />
               <span className="text-[10px] font-medium">Coach IA</span>
-            </Link>
-            <Link 
-              to="/settings"
-              className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full ${location.pathname === '/settings' ? "text-[#6366F1]" : "text-white/40 hover:text-white/80"}`}
-            >
-              <Settings className="h-5 w-5 mb-1" />
-              <span className="text-[10px] font-medium">Paramètres</span>
             </Link>
           </nav>
         </div>
