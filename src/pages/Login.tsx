@@ -8,9 +8,9 @@ import { toast } from "sonner";
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName: localStorage.getItem("user_firstName") || "",
+    lastName: localStorage.getItem("user_lastName") || "",
+    email: localStorage.getItem("user_email") || "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
