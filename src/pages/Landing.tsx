@@ -175,8 +175,8 @@ const Landing = () => {
 
       {/* Testimonials */}
       <section id="testimonials" className="container mx-auto px-4 py-16">
-        <h2 className="mb-12 text-center text-3xl font-bold text-foreground">
-          Ils ont déjà trouvé leurs clients
+        <h2 className="mb-12 text-center text-2xl md:text-3xl font-bold text-foreground">
+          Ils ont déjà trouvé <br className="block md:hidden" /> leurs clients
         </h2>
         <div className="grid gap-8 md:grid-cols-3">
           {[
