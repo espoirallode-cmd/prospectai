@@ -92,6 +92,7 @@ function AppSidebar({ hideDashboard }: { hideDashboard?: boolean }) {
 
 const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactNode; onBack?: () => void; hideDashboard?: boolean }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState({ firstName: "Freelance", lastName: "", email: "", photo: null as string | null });
 
   useEffect(() => {
@@ -122,13 +123,22 @@ const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactN
 
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen w-full">
+      <div className="flex md:min-h-screen w-full fixed inset-0 md:relative overflow-hidden md:overflow-visible">
         <AppSidebar hideDashboard={hideDashboard} />
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col overflow-hidden text-white/90">
           {/* Top bar with Glacial Effect and Matching Color */}
-          <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-0 bg-[#1a0533]/60 backdrop-blur-xl px-4 md:px-6">
+          <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-0 bg-[#1a0533]/60 backdrop-blur-xl px-4 md:px-6 shrink-0">
             <div className="flex items-center gap-4">
-              <SidebarTrigger className="text-muted-foreground" />
+              <SidebarTrigger className="text-muted-foreground hidden md:flex" />
+              
+              {/* Logo "ProspectAI" sur mobile à gauche */}
+              <div className="flex md:hidden items-center gap-1.5">
+                <div className="h-6 w-6 rounded-lg bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] flex items-center justify-center">
+                  <Zap className="h-3.5 w-3.5 text-white" />
+                </div>
+                <span className="text-[14px] font-black tracking-tight text-white hidden sm:block">Prospect<span className="text-[#6366F1]">AI</span></span>
+              </div>
+
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -139,14 +149,18 @@ const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactN
                 <span className="text-xs font-bold">Retour</span>
               </Button>
             </div>
-            <div className="flex items-center gap-3">
+            
+            {/* Bouton Passer PRO centré sur mobile */}
+            <div className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 z-50">
               <Link to="/pricing">
-                <Button size="sm" className="gradient-primary text-primary-foreground border-0 shadow-primary">
-                  <Crown className="mr-1.5 h-3.5 w-3.5" />
-                  Passer PRO
+                <Button size="sm" className="gradient-primary text-primary-foreground border-0 shadow-primary px-3 md:px-4">
+                  <Crown className="mr-1.5 h-3.5 w-3.5 shrink-0" />
+                  <span className="whitespace-nowrap md:inline">Passer PRO</span>
                 </Button>
               </Link>
-              
+            </div>
+
+            <div className="flex items-center gap-3">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-9 w-9 rounded-full p-0">
@@ -174,7 +188,46 @@ const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactN
               </DropdownMenu>
             </div>
           </header>
-          <main className="flex-1 overflow-auto p-4 md:p-6">{children}</main>
+          <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 md:p-6 pb-24 md:pb-6">{children}</main>
+
+          {/* Bottom Navigation for Mobile */}
+          <nav className="md:hidden flex items-center justify-around bg-[#1a0533] border-t border-white/5 pb-safe pt-2 px-2 shrink-0 h-[68px] z-50 sticky bottom-0">
+            <Link 
+              to="/dashboard"
+              className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full text-white/40 hover:text-white/80`}
+            >
+              <Zap className="h-5 w-5 mb-1" />
+              <span className="text-[10px] font-medium">Accueil</span>
+            </Link>
+            <Link 
+              to="/prospects"
+              className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full ${location.pathname === '/prospects' ? "text-[#6366F1]" : "text-white/40 hover:text-white/80"}`}
+            >
+              <Target className="h-5 w-5 mb-1" />
+              <span className="text-[10px] font-medium">Prospects</span>
+            </Link>
+            <Link 
+              to="/messages"
+              className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full ${location.pathname === '/messages' ? "text-[#6366F1]" : "text-white/40 hover:text-white/80"}`}
+            >
+              <MessageSquareText className="h-5 w-5 mb-1" />
+              <span className="text-[10px] font-medium">Messages</span>
+            </Link>
+            <Link 
+              to="/coach"
+              className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full ${location.pathname === '/coach' ? "text-[#6366F1]" : "text-white/40 hover:text-white/80"}`}
+            >
+              <Bot className="h-5 w-5 mb-1" />
+              <span className="text-[10px] font-medium">Coach IA</span>
+            </Link>
+            <Link 
+              to="/settings"
+              className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-full ${location.pathname === '/settings' ? "text-[#6366F1]" : "text-white/40 hover:text-white/80"}`}
+            >
+              <Settings className="h-5 w-5 mb-1" />
+              <span className="text-[10px] font-medium">Paramètres</span>
+            </Link>
+          </nav>
         </div>
       </div>
     </SidebarProvider>
