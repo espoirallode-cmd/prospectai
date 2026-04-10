@@ -146,6 +146,8 @@
   @media (min-width: 768px) {
     .hero-custom-bg {
       background-image: url('/hero-custom-bg.png');
+      background-size: 100% 100%;
+      background-position: center;
     }
   }
 
