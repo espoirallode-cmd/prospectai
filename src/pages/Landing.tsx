@@ -44,10 +44,10 @@ const Landing = () => {
       <nav className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link to="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-primary">
-              <Zap className="h-4 w-4 text-primary-foreground" />
+            <div className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-lg gradient-primary">
+              <Zap className="h-3.5 w-3.5 md:h-4 md:w-4 text-primary-foreground" />
             </div>
-            <span className="text-lg font-bold text-foreground">ProspectAI</span>
+            <span className="text-base md:text-lg font-bold text-foreground">ProspectAI</span>
           </Link>
           <div className="hidden items-center gap-8 md:flex">
             <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Fonctionnalités</a>
@@ -59,7 +59,7 @@ const Landing = () => {
             <Link to="/login">
               <Button variant="outline" size="sm">Se connecter</Button>
             </Link>
-            <Link to="/login">
+            <Link to="/login" className="hidden md:block">
               <Button size="sm" className="gradient-primary shadow-primary text-primary-foreground border-0">Commencer</Button>
             </Link>
           </div>
