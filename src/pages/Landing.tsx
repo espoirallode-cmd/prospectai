@@ -69,8 +69,8 @@ const Landing = () => {
       {/* Hero */}
       <section className="pt-4 pb-0">
         <div className="w-full">
-          <div className="hero-custom-bg px-2 pt-12 pb-12 md:px-6 md:py-24 text-center overflow-hidden">
-            <div className="relative z-10 mx-auto max-w-4xl pt-4 md:pt-0 -mt-2 md:-mt-5">
+          <div className="hero-custom-bg px-2 pt-4 pb-20 md:px-6 md:py-24 text-center overflow-hidden">
+            <div className="relative z-10 mx-auto max-w-4xl pt-0 md:pt-0 -mt-8 md:-mt-5">
               {/* Small Badge */}
               <div className="inline-flex items-center gap-1.5 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-white text-primary mb-3 md:mb-4 animate-fade-in-up">
                 <Zap className="h-3 md:h-3.5 w-3 md:w-3.5 fill-primary" />
@@ -88,7 +88,7 @@ const Landing = () => {
               </p>
               
               <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center animate-fade-in-up-delay-2">
-                <Link to="/login">
+                <Link to="/login" className="hidden md:block">
                   <Button size="default" className="h-9 md:h-10 px-4 md:px-5 text-[10px] md:text-xs font-bold rounded-xl bg-primary text-white border-0 shadow-lg hover:scale-105 transition-transform uppercase tracking-wider">
                     Découvrir mes opportunités
                     <ArrowRight className="ml-2 h-4 w-4" />
