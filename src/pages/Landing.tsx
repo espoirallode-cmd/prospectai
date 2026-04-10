@@ -79,7 +79,7 @@ const Landing = () => {
                 freelance en <span className="opacity-80">24h</span>
               </h1>
               
-              <p className="text-hero-sub mb-1.5 animate-fade-in-up-delay-1 px-4">
+              <p className="text-hero-sub mb-1.5 md:mb-4 animate-fade-in-up-delay-1 px-4">
                 <span className="md:hidden">
                   ProspectAI analyse les entreprises locales et détecte celles <br />
                   qui ont besoin de tes services. Messages personnalisés, <br />
