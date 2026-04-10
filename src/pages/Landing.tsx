@@ -151,15 +151,21 @@ const Landing = () => {
       <section className="border-y bg-muted/30">
         <div className="container mx-auto grid grid-cols-3 gap-4 md:gap-8 px-2 md:px-4 py-12 md:py-16 text-center">
           {[
-            { value: "Plus de 2,400", label: "Freelancers actifs" },
-            { value: "Plus de 18,000", label: "Prospects trouvés" },
-            { value: "34%", label: "Taux de réponse moyen" },
+            { mValue: "Plus de 2,400", pcValue: "2,400+", label: "Freelancers actifs" },
+            { mValue: "Plus de 18,000", pcValue: "18,000+", label: "Prospects trouvés" },
+            { mValue: "34%", pcValue: "34%", label: "Taux de réponse moyen" },
           ].map((s) => (
             <div key={s.label} className="flex flex-col items-center">
-              <p className="text-[13px] md:text-3xl font-extrabold text-gradient whitespace-nowrap leading-tight h-auto md:h-12 flex items-center justify-center">
-                {s.value}
+              {/* Mobile Value */}
+              <p className="md:hidden text-[13px] font-extrabold text-gradient whitespace-nowrap leading-tight">
+                {s.mValue}
               </p>
-              <p className="mt-2 text-[10px] md:text-sm text-muted-foreground font-medium max-w-[80px] leading-tight">
+              {/* PC Value */}
+              <p className="hidden md:block text-3xl md:text-4xl font-extrabold text-gradient">
+                {s.pcValue}
+              </p>
+              {/* Label */}
+              <p className="mt-2 md:mt-1 text-[10px] md:text-sm text-muted-foreground font-medium max-w-[80px] md:max-w-none leading-tight md:leading-normal">
                 {s.label}
               </p>
             </div>
