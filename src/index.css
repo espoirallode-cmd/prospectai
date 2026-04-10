@@ -152,13 +152,13 @@
   }
 
   .text-hero-title {
-    font-size: clamp(1rem, 5vw, 3rem);
+    font-size: clamp(1.15rem, 6vw, 3rem);
     line-height: 1.1;
     font-weight: 800;
   }
 
   .text-hero-sub {
-    font-size: clamp(0.6rem, 2vw, 0.875rem);
+    font-size: clamp(0.65rem, 2.5vw, 0.875rem);
     color: rgba(255, 255, 255, 0.7);
     max-width: 700px;
     margin-left: auto;

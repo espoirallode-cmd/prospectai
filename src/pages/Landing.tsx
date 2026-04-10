@@ -69,8 +69,8 @@ const Landing = () => {
       {/* Hero */}
       <section className="pt-4 pb-0">
         <div className="w-full">
-          <div className="hero-custom-bg px-2 pt-4 pb-20 md:px-6 md:py-24 text-center overflow-hidden">
-            <div className="relative z-10 mx-auto max-w-4xl pt-0 md:pt-0 -mt-8 md:-mt-5">
+          <div className="hero-custom-bg px-2 pt-6 pb-20 md:px-6 md:py-24 text-center overflow-hidden">
+            <div className="relative z-10 mx-auto max-w-4xl pt-0 md:pt-0 -mt-2 md:-mt-5">
               {/* Small Badge */}
               <div className="inline-flex items-center gap-1.5 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-white text-primary mb-3 md:mb-4 animate-fade-in-up">
                 <Zap className="h-3 md:h-3.5 w-3 md:w-3.5 fill-primary" />
@@ -78,7 +78,7 @@ const Landing = () => {
               </div>
               
               <h1 className="text-hero-title mb-1.5 animate-fade-in-up">
-                Trouve tes premiers clients <br className="hidden md:block" />
+                Trouve tes premiers clients <br />
                 freelance en <span className="opacity-80">24h</span>
               </h1>
               
