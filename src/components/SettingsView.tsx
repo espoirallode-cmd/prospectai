@@ -327,14 +327,7 @@ const SettingsView = () => {
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 rounded-2xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
-            <p className="font-medium text-white">Notifications dans l'application</p>
-            <Switch 
-              checked={user.notifications.app} 
-              onCheckedChange={(v) => updateNotif("app", v)}
-              className="data-[state=checked]:bg-[#6366F1]" 
-            />
-          </div>
+
 
           <Button 
             onClick={() => handleSave("notifications")} 
