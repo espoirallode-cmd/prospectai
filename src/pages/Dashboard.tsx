@@ -100,13 +100,8 @@ const Dashboard = () => {
   const handleLogout = () => {
     const toastId = toast.loading("Déconnexion en cours...");
     
-    // Clear all user data
-    localStorage.removeItem("user_firstName");
-    localStorage.removeItem("user_lastName");
-    localStorage.removeItem("user_email");
-    localStorage.removeItem("user_photo");
-    localStorage.removeItem("user_notifications");
-    localStorage.removeItem("user_skills");
+    // On ne supprime plus les données du localStorage pour conserver les paramètres
+    // lors de la prochaine connexion avec le même compte.
 
     setTimeout(() => {
       toast.success("Vous avez été déconnecté", { id: toastId });

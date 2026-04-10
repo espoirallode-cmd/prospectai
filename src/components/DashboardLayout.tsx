@@ -111,10 +111,7 @@ const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactN
 
   const handleLogout = () => {
     const toastId = toast.loading("Déconnexion en cours...");
-    localStorage.removeItem("user_firstName");
-    localStorage.removeItem("user_lastName");
-    localStorage.removeItem("user_email");
-    localStorage.removeItem("user_photo");
+    // On ne supprime plus les données du localStorage pour conserver les paramètres
     setTimeout(() => {
       toast.success("Déconnecté", { id: toastId });
       navigate("/");
