@@ -59,9 +59,6 @@ const Landing = () => {
             <Link to="/login">
               <Button variant="outline" size="sm">Se connecter</Button>
             </Link>
-            <Link to="/login" className="hidden md:block">
-              <Button size="sm" className="gradient-primary shadow-primary text-primary-foreground border-0">Commencer</Button>
-            </Link>
           </div>
         </div>
       </nav>
@@ -95,13 +92,6 @@ const Landing = () => {
               </p>
               
               <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center animate-fade-in-up-delay-2">
-                <Link to="/login" className="hidden md:block">
-                  <Button size="default" className="h-9 md:h-10 px-4 md:px-5 text-[10px] md:text-xs font-bold rounded-xl bg-primary text-white border-0 shadow-lg hover:scale-105 transition-transform uppercase tracking-wider">
-                    Découvrir mes opportunités
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-                
                 <div className="flex items-center gap-2.5 md:gap-3">
                   <div className="flex -space-x-2.5">
                     {[1, 2, 3, 4].map((i) => (
