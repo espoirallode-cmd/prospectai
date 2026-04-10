@@ -136,7 +136,7 @@ const Onboarding = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] py-12 px-4 relative overflow-hidden">
+    <div className="h-screen overflow-hidden md:min-h-screen md:overflow-visible bg-[#f8fafc] py-8 px-4 md:py-12 relative flex flex-col md:block">
       {/* Global Back Button in Corner */}
       <div className="hidden md:block absolute top-8 left-8 z-50">
         <Button 
@@ -155,17 +155,17 @@ const Onboarding = () => {
 
       <div className="max-w-xl mx-auto relative">
         {/* Centered Logo Header */}
-        <div className="flex items-center justify-center mb-12">
+        <div className="flex items-center justify-center mb-5 md:mb-12">
           <div className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] flex items-center justify-center shadow-lg shadow-indigo-500/20">
-              <Zap className="h-6 w-6 text-white" />
+            <div className="h-9 w-9 md:h-10 md:w-10 rounded-xl bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] flex items-center justify-center shadow-lg shadow-indigo-500/20">
+              <Zap className="h-5 w-5 md:h-6 md:w-6 text-white" />
             </div>
-            <span className="text-2xl font-black text-slate-900 tracking-tight">ProspectAI</span>
+            <span className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">ProspectAI</span>
           </div>
         </div>
 
         {/* Step indicator */}
-        <div className="mb-8 flex items-center justify-center gap-2">
+        <div className="mb-4 md:mb-8 flex items-center justify-center gap-2">
           {steps.map((s, i) => (
             <div key={i} className="flex items-center gap-2">
               <div
@@ -184,7 +184,7 @@ const Onboarding = () => {
           ))}
         </div>
 
-        <div className="rounded-xl border bg-card p-8">
+        <div className="rounded-xl border bg-card p-5 md:p-8">
           {/* Step 1 */}
           {step === 0 && (
             <div className="animate-fade-in-up space-y-6">
