@@ -312,7 +312,7 @@ const Landing = () => {
                 className="flex w-full items-center justify-between p-6 text-left hover:bg-muted/50 transition-colors"
               >
                 <span className="font-semibold text-foreground">{faq.q}</span>
-                <div className={`flex h-8 w-8 items-center justify-center rounded-lg gradient-primary text-white transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`}>
+                <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg gradient-primary text-white transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`}>
                   {openFaq === i ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
                 </div>
               </button>
