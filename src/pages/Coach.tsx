@@ -77,17 +77,17 @@ const Coach = () => {
           </div>
 
           {/* Quick Actions - Glacial Style */}
-          <div className="mb-8 flex flex-wrap gap-3">
+          <div className="mb-4 md:mb-6 grid grid-cols-2 gap-2 md:gap-2">
             {quickActions.map((action) => (
               <Button
                 key={action.label}
                 variant="outline"
                 size="sm"
                 onClick={() => sendMessage(action.prompt)}
-                className="bg-white/5 border-white/10 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl h-10 transition-all font-bold backdrop-blur-md"
+                className="bg-white/5 border-white/10 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl h-9 md:h-9 text-xs md:text-xs transition-all font-bold backdrop-blur-md w-full justify-start truncate"
               >
-                <Sparkles className="mr-2 h-4 w-4 text-[#6366F1]" />
-                {action.label}
+                <Sparkles className="mr-1.5 h-3 w-3 md:h-3.5 md:w-3.5 text-[#6366F1] shrink-0" />
+                <span className="truncate">{action.label}</span>
               </Button>
             ))}
           </div>
@@ -150,9 +150,9 @@ const Coach = () => {
               <Button
                 onClick={() => sendMessage(input)}
                 disabled={!input.trim()}
-                className="h-11 w-11 rounded-full bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white shadow-lg shadow-indigo-500/20 border-0 flex-shrink-0 hover:scale-105 active:scale-95 transition-all p-0"
+                className="h-8 w-8 md:h-9 md:w-9 rounded-full bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white shadow-lg shadow-indigo-500/20 border-0 flex-shrink-0 hover:scale-105 active:scale-95 transition-all p-0 mr-0.5"
               >
-                <Send className="h-5 w-5" />
+                <Send className="h-3.5 w-3.5 md:h-4 md:w-4" />
               </Button>
             </div>
           </div>
