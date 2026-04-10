@@ -83,8 +83,9 @@ const Landing = () => {
               </h1>
               
               <p className="text-hero-sub mb-4 animate-fade-in-up-delay-1 px-4">
-                ProspectAI analyse les entreprises locales et détecte celles qui ont besoin de tes services. <br />
-                Messages personnalisés, coaching closing — tout est automatisé.
+                ProspectAI analyse les entreprises locales et détecte celles <br />
+                qui ont besoin de tes services. Messages <br />
+                personnalisés, coaching closing — tout est automatisé.
               </p>
               
               <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center animate-fade-in-up-delay-2">
