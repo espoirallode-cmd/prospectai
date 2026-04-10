@@ -69,12 +69,12 @@ const Landing = () => {
       {/* Hero */}
       <section className="pt-4 pb-0">
         <div className="w-full">
-          <div className="hero-custom-bg px-6 py-16 md:py-24 text-center overflow-hidden">
-            <div className="relative z-10 mx-auto max-w-4xl -mt-4 md:-mt-5">
+          <div className="hero-custom-bg px-4 pt-10 pb-32 md:px-6 md:py-24 text-center overflow-hidden">
+            <div className="relative z-10 mx-auto max-w-4xl -mt-6 md:-mt-5">
               {/* Small Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-primary mb-4 animate-fade-in-up">
-                <Zap className="h-3.5 w-3.5 fill-primary" />
-                <span className="text-[10px] md:text-xs font-bold tracking-wider uppercase">Prospection, Closing & Automatisation</span>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-white text-primary mb-3 md:mb-4 animate-fade-in-up">
+                <Zap className="h-3 md:h-3.5 w-3 md:w-3.5 fill-primary" />
+                <span className="text-[9px] md:text-xs font-bold tracking-wider uppercase">Prospection, Closing & Automatisation</span>
               </div>
               
               <h1 className="text-hero-title mb-2 animate-fade-in-up">
@@ -89,7 +89,7 @@ const Landing = () => {
               
               <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-center animate-fade-in-up-delay-2">
                 <Link to="/login">
-                  <Button size="default" className="h-10 px-5 text-xs font-bold rounded-xl bg-primary text-white border-0 shadow-lg hover:scale-105 transition-transform uppercase tracking-wider">
+                  <Button size="default" className="h-9 md:h-10 px-4 md:px-5 text-[10px] md:text-xs font-bold rounded-xl bg-primary text-white border-0 shadow-lg hover:scale-105 transition-transform uppercase tracking-wider">
                     Découvrir mes opportunités
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -98,7 +98,7 @@ const Landing = () => {
                 <div className="flex items-center gap-3">
                   <div className="flex -space-x-2.5">
                     {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="h-8 w-8 rounded-full border-2 border-white/20 bg-muted/20 flex items-center justify-center overflow-hidden">
+                      <div key={i} className="h-7 md:h-8 w-7 md:w-8 rounded-full border-2 border-white/20 bg-muted/20 flex items-center justify-center overflow-hidden">
                         <img src={`https://i.pravatar.cc/150?u=user${i+10}`} alt="user" className="h-full w-full object-cover" />
                       </div>
                     ))}
@@ -113,7 +113,7 @@ const Landing = () => {
             
             {/* The background image already contains the dashboard at the bottom, 
                 so we only provide enough height and padding for it to show. */}
-            <div className="h-40 md:h-64 lg:h-80 mt-4 md:mt-5" />
+            <div className="h-20 md:h-64 lg:h-80 mt-4 md:mt-5" />
           </div>
         </div>
       </section>
