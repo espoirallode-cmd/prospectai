@@ -77,7 +77,7 @@ const Coach = () => {
           </div>
 
           {/* Quick Actions - Glacial Style */}
-          <div className="mb-4 md:mb-6 grid grid-cols-2 gap-2 md:gap-2">
+          <div className="mb-6 md:mb-6 grid grid-cols-2 gap-2">
             {quickActions.map((action) => (
               <Button
                 key={action.label}
@@ -150,7 +150,7 @@ const Coach = () => {
               <Button
                 onClick={() => sendMessage(input)}
                 disabled={!input.trim()}
-                className="h-8 w-8 md:h-9 md:w-9 rounded-full bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white shadow-lg shadow-indigo-500/20 border-0 flex-shrink-0 hover:scale-105 active:scale-95 transition-all p-0 mr-0.5"
+                className="h-8 w-8 md:h-9 md:w-9 rounded-full bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white shadow-lg shadow-indigo-500/20 border-0 flex-shrink-0 hover:scale-105 active:scale-95 transition-all p-0 mr-1.5 md:mr-0.5"
               >
                 <Send className="h-3.5 w-3.5 md:h-4 md:w-4" />
               </Button>
