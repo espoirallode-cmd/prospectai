@@ -170,29 +170,29 @@ const Prospects = () => {
                     </div>
                   )}
 
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3">
-                        <h3 className="text-xl font-bold text-white group-hover:text-[#6366F1] transition-colors">{p.name}</h3>
+                  <div className="flex items-start justify-between mb-4 md:mb-6">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="text-base md:text-xl font-bold text-white group-hover:text-[#6366F1] transition-colors leading-tight">{p.name}</h3>
                         {p.isNew && (
-                          <Badge className="bg-green-500/20 text-green-400 border-0 text-[10px] px-2 py-0.5 rounded-full font-black uppercase">
+                          <Badge className="bg-green-500/20 text-green-400 border-0 text-[9px] md:text-[10px] px-2 py-0.5 rounded-full font-black uppercase shrink-0">
                             Nouveau
                           </Badge>
                         )}
                       </div>
-                      <div className="mt-2 flex items-center gap-3 text-sm text-white/40 font-medium">
-                        <span className="px-2 py-0.5 bg-white/5 rounded-md">{p.sector}</span>
-                        <div className="flex items-center gap-1.5 underline decoration-white/10 underline-offset-4">
-                          <MapPin className="h-3.5 w-3.5 text-[#6366F1]" />
-                          {p.city}, {p.neighborhood}
+                      <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-white/40 font-medium">
+                        <span className="px-2 py-0.5 bg-white/5 rounded-md truncate max-w-[100px] md:max-w-none">{p.sector}</span>
+                        <div className="flex items-center gap-1">
+                          <MapPin className="h-3 w-3 md:h-3.5 md:w-3.5 text-[#6366F1] shrink-0" />
+                          <span className="truncate">{p.city}, {p.neighborhood}</span>
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-col items-center gap-1">
-                      <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${config.bg}/20 border border-${config.color}/20`}>
-                        <span className={`text-lg font-black ${config.color}`}>{p.matchScore}</span>
+                    <div className="flex flex-col items-center gap-0.5 ml-2 shrink-0">
+                      <div className={`flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-2xl ${config.bg}/20 border border-${config.color}/20`}>
+                        <span className={`text-base md:text-lg font-black ${config.color}`}>{p.matchScore}</span>
                       </div>
-                      <span className="text-[10px] font-black text-white/30 uppercase tracking-tighter">{config.emoji} {config.label}</span>
+                      <span className="text-[9px] md:text-[10px] font-black text-white/30 uppercase tracking-tighter">{config.emoji} {config.label}</span>
                     </div>
                   </div>
 
@@ -204,41 +204,41 @@ const Prospects = () => {
                   </div>
 
                   {/* Detected need */}
-                  <div className="p-4 rounded-2xl bg-white/5 border border-white/5 mb-6">
-                    <p className="text-[10px] font-black text-[#6366F1] uppercase tracking-widest mb-1">Besoin prioritaire</p>
-                    <p className="text-sm text-white/90 font-semibold italic">"{p.detectedNeed}"</p>
+                  <div className="p-3 md:p-4 rounded-2xl bg-white/5 border border-white/5 mb-4 md:mb-6">
+                    <p className="text-[9px] md:text-[10px] font-black text-[#6366F1] uppercase tracking-widest mb-1">Besoin prioritaire</p>
+                    <p className="text-xs md:text-sm text-white/90 font-semibold italic">"{p.detectedNeed}"</p>
                   </div>
 
                   {/* Signals & Budget */}
                   <div className="flex items-center justify-between mt-auto">
-                    <div className="space-y-3">
-                      <div className="flex flex-wrap gap-2">
+                    <div className="space-y-2 md:space-y-3">
+                      <div className="flex flex-wrap gap-1.5 md:gap-2">
                         {p.signals.slice(0, 2).map((signal) => (
-                          <Badge key={signal} variant="secondary" className="bg-white/5 text-white/60 border-0 text-[10px] px-2 py-0.5 rounded-lg">
+                          <Badge key={signal} variant="secondary" className="bg-white/5 text-white/60 border-0 text-[9px] md:text-[10px] px-2 py-0.5 rounded-lg">
                             {signal}
                           </Badge>
                         ))}
                       </div>
-                      <div className="flex flex-col gap-2">
+                      <div className="flex flex-col gap-1.5 md:gap-2">
                         {p.phone && (
-                          <div className="flex items-center gap-2 text-xs text-white/40 font-bold">
-                            <Phone className="h-3.5 w-3.5 text-[#6366F1]" />
+                          <div className="flex items-center gap-1.5 text-[10px] md:text-xs text-white/40 font-bold">
+                            <Phone className="h-3 w-3 md:h-3.5 md:w-3.5 text-[#6366F1] shrink-0" />
                             {p.locked ? (
                               <span>+229 •• •• •• ••</span>
                             ) : (
-                              <a href={`tel:${p.phone.replace(/\s+/g, '')}`} className="text-white hover:text-[#6366F1] transition-colors">
+                              <a href={`tel:${p.phone.replace(/\s+/g, '')}`} className="text-white hover:text-[#6366F1] transition-colors truncate">
                                 {p.phone}
                               </a>
                             )}
                           </div>
                         )}
                         {p.email && (
-                          <div className="flex items-center gap-2 text-xs text-white/40 font-bold">
-                            <Mail className="h-3.5 w-3.5 text-[#6366F1]" />
+                          <div className="flex items-center gap-1.5 text-[10px] md:text-xs text-white/40 font-bold">
+                            <Mail className="h-3 w-3 md:h-3.5 md:w-3.5 text-[#6366F1] shrink-0" />
                             {p.locked ? (
                               <span>••••••••@••••.bj</span>
                             ) : (
-                              <a href={`mailto:${p.email}`} className="text-white hover:text-[#6366F1] transition-colors">
+                              <a href={`mailto:${p.email}`} className="text-white hover:text-[#6366F1] transition-colors truncate text-[10px] md:text-xs">
                                 {p.email}
                               </a>
                             )}
@@ -249,21 +249,21 @@ const Prospects = () => {
                   </div>
 
                   {/* Actions */}
-                  <div className="mt-8 flex gap-3">
+                  <div className="mt-5 md:mt-8 flex gap-2 md:gap-3">
                     <Link to="/messages" className="flex-1">
-                      <Button className="w-full bg-[#6366F1] hover:bg-[#8B5CF6] text-white font-bold h-12 rounded-xl transition-all shadow-lg shadow-indigo-500/10">
-                        <Sparkles className="mr-2 h-4 w-4" />
+                      <Button className="w-full bg-[#6366F1] hover:bg-[#8B5CF6] text-white font-bold h-10 md:h-12 rounded-xl text-xs md:text-sm transition-all shadow-lg shadow-indigo-500/10">
+                        <Sparkles className="mr-1.5 h-3.5 w-3.5 md:h-4 md:w-4" />
                         Générer le message
-                        <ArrowUpRight className="ml-auto h-4 w-4" />
+                        <ArrowUpRight className="ml-auto h-3.5 w-3.5 md:h-4 md:w-4" />
                       </Button>
                     </Link>
                     <Button
                       variant="outline"
                       size="icon"
                       onClick={() => setSelectedProspect(p)}
-                      className="border-white/10 bg-white/5 text-white hover:bg-white/10 h-12 w-12 rounded-xl"
+                      className="border-white/10 bg-white/5 text-white hover:bg-white/10 h-10 w-10 md:h-12 md:w-12 rounded-xl shrink-0"
                     >
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-3.5 w-3.5 md:h-4 md:w-4" />
                     </Button>
                   </div>
                 </div>
