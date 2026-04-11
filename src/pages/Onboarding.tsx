@@ -136,7 +136,7 @@ const Onboarding = () => {
   }
 
   return (
-    <div className="fixed inset-0 overflow-hidden md:static md:min-h-screen md:overflow-auto bg-[#f8fafc] flex flex-col justify-center md:block py-8 md:py-12 px-4 relative">
+    <div className="fixed inset-0 flex flex-col bg-[#f8fafc] md:static md:min-h-screen md:block md:py-12 md:px-4 relative">
       {/* Global Back Button in Corner */}
       <div className="hidden md:block absolute top-8 left-8 z-50">
         <Button 
@@ -153,6 +153,8 @@ const Onboarding = () => {
       <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
 
+      {/* Scrollable content area on mobile */}
+      <div className="flex-1 overflow-y-auto px-4 py-6 md:overflow-visible md:px-0 md:py-0">
       <div className="max-w-xl mx-auto relative">
         {/* Centered Logo Header */}
         <div className="flex items-center justify-center mb-5 md:mb-12">
@@ -304,6 +306,7 @@ const Onboarding = () => {
             </Button>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
