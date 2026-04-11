@@ -127,7 +127,7 @@ const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactN
         <AppSidebar hideDashboard={hideDashboard} />
         <div className="flex flex-1 flex-col overflow-hidden text-white/90">
           {/* Top bar with Glacial Effect and Matching Color */}
-          <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-0 bg-[#1a0533]/60 backdrop-blur-xl px-4 md:px-6 shrink-0">
+          <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-0 bg-[#1a0533]/60 backdrop-blur-xl px-4 md:px-6 shrink-0 relative">
             <div className="flex items-center gap-4">
               <SidebarTrigger className="text-muted-foreground hidden md:flex" />
               
@@ -151,7 +151,7 @@ const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactN
             </div>
             
             {/* Bouton Passer PRO centré sur mobile */}
-            <div className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 z-50">
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
               <Link to="/pricing">
                 <Button size="sm" className="gradient-primary text-primary-foreground border-0 shadow-primary px-3 md:px-4">
                   <Crown className="mr-1.5 h-3.5 w-3.5 shrink-0" />

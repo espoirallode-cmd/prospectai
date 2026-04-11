@@ -139,20 +139,20 @@ const Coach = () => {
           </div>
 
           <div className="pb-8">
-            <div className="flex gap-3 p-1.5 bg-white/5 border border-white/10 rounded-[2rem] backdrop-blur-xl shadow-xl shadow-black/20 focus-within:border-[#6366F1]/50 transition-all items-center">
+            <div className="relative flex bg-white/5 border border-white/10 rounded-[2rem] backdrop-blur-xl shadow-xl shadow-black/20 focus-within:border-[#6366F1]/50 transition-all items-center">
               <input
                 placeholder="Pose ta question en closing ou prospection..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && sendMessage(input)}
-                className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 text-white placeholder:text-slate-500 h-10 px-6"
+                className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 text-white placeholder:text-slate-500 h-12 px-6 pr-14"
               />
               <Button
                 onClick={() => sendMessage(input)}
                 disabled={!input.trim()}
-                className="h-8 w-8 md:h-9 md:w-9 rounded-full bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white shadow-lg shadow-indigo-500/20 border-0 flex-shrink-0 hover:scale-105 active:scale-95 transition-all p-0 mr-1.5 md:mr-0.5"
+                className="absolute right-1.5 h-9 w-9 rounded-full bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white shadow-lg shadow-indigo-500/20 border-0 flex-shrink-0 hover:scale-105 active:scale-95 transition-all p-0"
               >
-                <Send className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                <Send className="h-4 w-4" />
               </Button>
             </div>
           </div>
