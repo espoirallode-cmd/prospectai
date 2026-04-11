@@ -136,7 +136,7 @@ const Onboarding = () => {
   }
 
   return (
-    <div className="h-screen overflow-hidden md:min-h-screen md:overflow-visible bg-[#f8fafc] py-8 px-4 md:py-12 relative flex flex-col md:block">
+    <div className="fixed inset-0 overflow-hidden md:static md:min-h-screen md:overflow-auto bg-[#f8fafc] flex flex-col justify-center md:block py-8 md:py-12 px-4 relative">
       {/* Global Back Button in Corner */}
       <div className="hidden md:block absolute top-8 left-8 z-50">
         <Button 
