@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import SettingsView from "@/components/SettingsView";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Message {
   role: "user" | "assistant";
@@ -54,6 +55,7 @@ const getResponse = (msg: string): string => {
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { profile, signOut } = useAuth();
   const [currentView, setCurrentView] = useState<"accueil" | "coach" | "settings" | "prospects">("accueil");
   const [showMobileProfile, setShowMobileProfile] = useState(false);
 
@@ -67,7 +69,6 @@ const Dashboard = () => {
       window.history.replaceState({}, "", "/dashboard");
     }
   }, []);
-  const [user, setUser] = useState({ firstName: "Freelance", lastName: "", email: "", photo: null as string | null });
   
   // Coach State
   const [messages, setMessages] = useState<Message[]>([
@@ -82,35 +83,21 @@ const Dashboard = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const firstName = localStorage.getItem("user_firstName");
-    const lastName = localStorage.getItem("user_lastName");
-    const email = localStorage.getItem("user_email");
-    const photo = localStorage.getItem("user_photo");
-    if (firstName) {
-      setUser({ firstName, lastName: lastName || "", email: email || "", photo });
-    }
-  }, [currentView]);
-
-  useEffect(() => {
     if (currentView === "coach") {
       scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
     }
   }, [messages, currentView]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     const toastId = toast.loading("Déconnexion en cours...");
-    
-    // On ne supprime plus les données du localStorage pour conserver les paramètres
-    // lors de la prochaine connexion avec le même compte.
-
-    setTimeout(() => {
-      toast.success("Vous avez été déconnecté", { id: toastId });
-      navigate("/");
-    }, 1200);
+    await signOut();
+    toast.success("Vous avez été déconnecté", { id: toastId });
+    navigate("/");
   };
 
   const getInitials = () => {
-    return (user.firstName[0] + (user.lastName[0] || "")).toUpperCase();
+    if (!profile) return "??";
+    return (profile.prenom?.[0] || "").toUpperCase() + (profile.nom?.[0] || "").toUpperCase();
   };
 
   const sendCoachMessage = (text: string) => {
@@ -209,15 +196,15 @@ const Dashboard = () => {
             <div className="hidden md:flex items-center gap-4">
               <div className="flex items-center gap-3 pr-4 border-r border-white/10">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] text-xs font-bold ring-2 ring-white/10 overflow-hidden">
-                  {user.photo ? (
-                    <img src={user.photo} alt="Profil" className="w-full h-full object-cover" />
-                  ) : (
+                  {profile?.email ? (
                     getInitials()
+                  ) : (
+                    "??"
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium leading-none mb-1">{user.firstName} {user.lastName}</span>
-                  <span className="text-[10px] text-white/40 leading-none">{user.email}</span>
+                  <span className="text-sm font-medium leading-none mb-1">{profile?.prenom || "Freelance"} {profile?.nom || ""}</span>
+                  <span className="text-[10px] text-white/40 leading-none">{profile?.email}</span>
                 </div>
               </div>
               
@@ -236,11 +223,7 @@ const Dashboard = () => {
                 onClick={() => setShowMobileProfile(!showMobileProfile)}
                 className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] text-[10px] font-bold ring-2 ring-white/10 overflow-hidden focus:outline-none"
               >
-                {user.photo ? (
-                  <img src={user.photo} alt="Profil" className="w-full h-full object-cover" />
-                ) : (
-                  getInitials()
-                )}
+                {getInitials()}
               </button>
               
               {/* Dropdown Menu Mobile */}
@@ -249,7 +232,7 @@ const Dashboard = () => {
                   <div className="fixed inset-0 z-40" onClick={() => setShowMobileProfile(false)} />
                   <div className="absolute right-0 top-full mt-3 w-56 rounded-xl border border-white/10 bg-[#1a0533] p-2 shadow-2xl z-50 animate-fade-in-up">
                     <div className="px-3 py-2 border-b border-white/10 mb-1">
-                      <p className="text-xs text-white/50 break-words">{user.email}</p>
+                      <p className="text-xs text-white/50 break-words">{profile?.email}</p>
                     </div>
                     <button
                       onClick={handleLogout}
@@ -288,7 +271,7 @@ const Dashboard = () => {
                       }
                     }
                     
-                    return `${greeting} ${user.firstName} ${user.lastName} ! ${emoji}`;
+                    return `${greeting} ${profile?.prenom || "Freelance"} ${profile?.nom || ""} ! ${emoji}`;
                   })()}
                 </h1>
                 <p className="text-sm md:text-xl text-white/50 mb-8 md:mb-12 font-medium">

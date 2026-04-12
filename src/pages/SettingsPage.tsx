@@ -42,28 +42,68 @@ import {
 import { toast } from "sonner";
 import DashboardLayout from "@/components/DashboardLayout";
 
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/lib/supabase";
+
 const SettingsPage = () => {
+  const { profile, user: authUser } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
-    firstName: localStorage.getItem("user_firstName") || "",
-    lastName: localStorage.getItem("user_lastName") || "",
-    email: localStorage.getItem("user_email") || "fidele@prospectai.com",
-    skills: ["Développeur Web", "Designer UI/UX"],
-    city: "Cotonou",
-    radius: 25,
-    tjm: 75000,
-    bio: "Freelance passionné par le digital.",
-    plan: "Freemium"
+    firstName: "",
+    lastName: "",
+    email: "",
+    skills: [] as string[],
+    city: "",
+    radius: 10,
+    tjm: 0,
+    plan: "freemium"
   });
+
+  useEffect(() => {
+    if (profile) {
+      setUser({
+        firstName: profile.prenom || "",
+        lastName: profile.nom || "",
+        email: profile.email || "",
+        skills: profile.competences || [],
+        city: profile.ville || "",
+        radius: profile.rayon_km || 10,
+        tjm: profile.tarif_fcfa || 0,
+        plan: profile.plan || "freemium"
+      });
+    }
+  }, [profile]);
 
   const [sectors, setSectors] = useState<string[]>(["Santé", "Immobilier"]);
   const [excludeTags, setExcludeTags] = useState<string[]>(["Assurance", "Trading"]);
   const [newSkill, setNewSkill] = useState("");
   const [newExclude, setNewExclude] = useState("");
 
-  const handleSave = () => {
-    localStorage.setItem("user_firstName", user.firstName);
-    localStorage.setItem("user_lastName", user.lastName);
-    toast.success("Modifications enregistrées !");
+  const handleSave = async () => {
+    if (!authUser) return;
+    setLoading(true);
+    
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({
+          prenom: user.firstName,
+          nom: user.lastName,
+          email: user.email,
+          competences: user.skills,
+          ville: user.city,
+          rayon_km: user.radius,
+          tarif_fcfa: user.tjm,
+        })
+        .eq('id', authUser.id);
+
+      if (error) throw error;
+      toast.success("Modifications enregistrées !");
+    } catch (error: any) {
+      toast.error(error.message || "Erreur lors de la sauvegarde");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const addTag = (type: "skill" | "exclude") => {
@@ -91,7 +131,7 @@ const SettingsPage = () => {
   };
 
   const getInitials = () => {
-    return ((user.firstName[0] || "") + (user.lastName[0] || "")).toUpperCase();
+    return ((user.firstName?.[0] || "") + (user.lastName?.[0] || "")).toUpperCase() || "??";
   };
 
   return (
@@ -193,18 +233,12 @@ const SettingsPage = () => {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label className="text-white/70">Bio courte (3 lignes max)</Label>
-                <Textarea 
-                  placeholder="Décris-toi en 2 phrases..."
-                  value={user.bio}
-                  onChange={(e) => setUser({...user, bio: e.target.value})}
-                  className="bg-white/5 border-white/10 rounded-xl h-24 focus:ring-[#6366F1]/40"
-                />
-              </div>
-
-              <Button onClick={handleSave} className="bg-[#6366F1] hover:bg-[#8B5CF6] text-white font-bold px-8 py-6 rounded-2xl transition-all shadow-lg shadow-indigo-500/20">
-                <Save className="mr-2 h-5 w-5" /> Enregistrer les modifications
+              <Button 
+                onClick={handleSave} 
+                disabled={loading}
+                className="bg-[#6366F1] hover:bg-[#8B5CF6] text-white font-bold px-8 py-6 rounded-2xl transition-all shadow-lg shadow-indigo-500/20"
+              >
+                {loading ? "Enregistrement..." : <><Save className="mr-2 h-5 w-5" /> Enregistrer les modifications</>}
               </Button>
             </div>
           </section>
