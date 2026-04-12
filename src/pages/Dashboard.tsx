@@ -271,7 +271,25 @@ const Dashboard = () => {
             <div className="min-h-full p-6 md:p-12 flex flex-col items-center justify-center text-center">
               <div className="max-w-3xl animate-fade-in mt-10 md:mt-0">
                 <h1 className="text-3xl md:text-5xl font-extrabold mb-3 md:mb-4 tracking-tight">
-                  Bonjour {user.firstName} {user.lastName} ! 👋
+                  {(() => {
+                    const hour = new Date().getHours();
+                    let greeting = "Bonjour";
+                    let emoji = "☀️";
+                    
+                    if (hour >= 13 && hour < 18) {
+                      greeting = "Bonne après-midi";
+                      emoji = "⛅";
+                    } else if (hour >= 18) {
+                      greeting = "Bonsoir";
+                      if (hour < 20) {
+                        emoji = "🌅";
+                      } else {
+                        emoji = "🌙";
+                      }
+                    }
+                    
+                    return `${greeting} ${user.firstName} ${user.lastName} ! ${emoji}`;
+                  })()}
                 </h1>
                 <p className="text-sm md:text-xl text-white/50 mb-8 md:mb-12 font-medium">
                   Prêt à trouver tes premiers clients freelance aujourd'hui ?
