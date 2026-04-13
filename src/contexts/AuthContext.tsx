@@ -7,6 +7,7 @@ interface Profile {
   prenom: string;
   nom: string;
   email: string;
+  photo_url?: string;
   competences: string[];
   ville: string;
   pays: string;
@@ -67,17 +68,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     if (error && error.code === 'PGRST116') {
       // Profile doesn't exist, create it
-      const tempFirstName = localStorage.getItem('temp_firstName') || '';
-      const tempLastName = localStorage.getItem('temp_lastName') || '';
+      // For Google OAuth, we get info from metadata
+      const metadata = user.user_metadata;
+      const firstName = metadata?.given_name || metadata?.name?.split(' ')[0] || localStorage.getItem('temp_firstName') || '';
+      const lastName = metadata?.family_name || metadata?.name?.split(' ').slice(1).join(' ') || localStorage.getItem('temp_lastName') || '';
+      const photoUrl = metadata?.avatar_url || metadata?.picture || '';
       
       const { data: newProfile, error: createError } = await supabase
         .from('profiles')
         .insert([
           { 
             id: user.id, 
-            prenom: tempFirstName, 
-            nom: tempLastName, 
+            prenom: firstName, 
+            nom: lastName, 
             email: user.email,
+            photo_url: photoUrl,
             competences: [],
             ville: "",
             pays: "",
@@ -100,6 +105,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         localStorage.removeItem('temp_email');
       }
     } else if (data) {
+      // Update photo if it's missing or changed and we have a new one from Google
+      const metadata = user.user_metadata;
+      const photoUrl = metadata?.avatar_url || metadata?.picture;
+      if (photoUrl && data.photo_url !== photoUrl) {
+        await supabase
+          .from('profiles')
+          .update({ photo_url: photoUrl })
+          .eq('id', user.id);
+        data.photo_url = photoUrl;
+      }
       setProfile(data);
     }
     setLoading(false);

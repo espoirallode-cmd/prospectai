@@ -196,7 +196,9 @@ const Dashboard = () => {
             <div className="hidden md:flex items-center gap-4">
               <div className="flex items-center gap-3 pr-4 border-r border-white/10">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] text-xs font-bold ring-2 ring-white/10 overflow-hidden">
-                  {profile?.email ? (
+                  {profile?.photo_url ? (
+                    <img src={profile.photo_url} alt="Profile" className="w-full h-full object-cover" />
+                  ) : profile?.email ? (
                     getInitials()
                   ) : (
                     "??"
@@ -223,7 +225,11 @@ const Dashboard = () => {
                 onClick={() => setShowMobileProfile(!showMobileProfile)}
                 className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] text-[10px] font-bold ring-2 ring-white/10 overflow-hidden focus:outline-none"
               >
-                {getInitials()}
+                {profile?.photo_url ? (
+                  <img src={profile.photo_url} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                  getInitials()
+                )}
               </button>
               
               {/* Dropdown Menu Mobile */}
