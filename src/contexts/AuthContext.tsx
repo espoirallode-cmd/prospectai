@@ -91,25 +91,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signOut = async () => {
-    // 1. Clear local state immediately for instant UI feedback
-    setProfile(null);
-    setUser(null);
+    // Clear purely local state immediately to avoid UI locking
     setSession(null);
-    setLoading(false);
+    setUser(null);
+    setProfile(null);
     
-    // 2. Clear any pending name data
+    // Clear pending login names from localStorage
     localStorage.removeItem('pending_prenom');
     localStorage.removeItem('pending_nom');
-    localStorage.removeItem('temp_firstName');
-    localStorage.removeItem('temp_lastName');
-    localStorage.removeItem('temp_email');
 
-    // 3. Perform network logout
-    try {
-      await supabase.auth.signOut();
-    } catch (error) {
-      console.error("Error during Supabase signout:", error);
-    }
+    // Run remote sign out asynchronously so it doesn't block the UI
+    supabase.auth.signOut().catch(error => {
+      console.error("Sign out error:", error);
+    });
   };
 
   return (

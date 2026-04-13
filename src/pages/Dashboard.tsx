@@ -123,7 +123,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full bg-[#0a0a0f] text-white relative">
+    <div className="flex fixed inset-0 bg-[#0a0a0f] text-white overflow-hidden">
       {/* Sidebar - PC Only */}
       <aside className="hidden md:flex w-64 bg-[#1a0533] flex-col border-r border-white/5">
         <div className="h-16 flex items-center gap-2 px-6 border-b border-white/5">
