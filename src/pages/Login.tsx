@@ -65,6 +65,11 @@ const Login = () => {
         email: formData.email,
         options: {
           emailRedirectTo: window.location.origin + "/dashboard",
+          data: {
+            prenom: formData.firstName,
+            nom: formData.lastName,
+            full_name: `${formData.firstName} ${formData.lastName}`,
+          }
         },
       });
 

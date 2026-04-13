@@ -277,7 +277,9 @@ const Dashboard = () => {
                       }
                     }
                     
-                    return `${greeting} ${profile?.prenom || "Freelance"} ${profile?.nom || ""} ! ${emoji}`;
+                    const name = profile?.prenom || profile?.email?.split('@')[0] || "Freelance";
+                    const lastName = profile?.nom || "";
+                    return `${greeting} ${name} ${lastName} ! ${emoji}`;
                   })()}
                 </h1>
                 <p className="text-sm md:text-xl text-white/50 mb-8 md:mb-12 font-medium">
@@ -294,14 +296,15 @@ const Dashboard = () => {
                   </Button>
                 </Link>
 
-                <div className="grid grid-cols-2 gap-4 md:gap-6 mt-16 md:mt-20 w-full max-w-xl mx-auto">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mt-16 md:mt-20 w-full max-w-2xl mx-auto">
                   {[
+                    { label: "Prospects analysés", value: "0", icon: Search },
                     { label: "Messages générés", value: "0", icon: MessageSquare },
                     { label: "Clients contactés", value: "0", icon: UserPlus },
                   ].map((stat, i) => (
                     <div 
                       key={i} 
-                      className="bg-white/5 border border-white/10 rounded-2xl p-4 md:p-6 hover:bg-white/10 transition-all group"
+                      className={`bg-white/5 border border-white/10 rounded-2xl p-4 md:p-6 hover:bg-white/10 transition-all group ${i === 2 ? "col-span-2 md:col-span-1" : ""}`}
                     >
                       <div className="flex justify-center mb-2 md:mb-3">
                         <stat.icon className="h-4 w-4 md:h-5 md:w-5 text-[#6366F1] group-hover:scale-110 transition-transform" />
