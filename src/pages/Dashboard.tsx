@@ -205,7 +205,7 @@ const Dashboard = () => {
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium leading-none mb-1">{profile?.prenom || ""} {profile?.nom || ""}</span>
+                  <span className="text-sm font-medium leading-none mb-1">{profile?.prenom} {profile?.nom}</span>
                   <span className="text-[10px] text-white/40 leading-none">{profile?.email}</span>
                 </div>
               </div>
@@ -277,8 +277,7 @@ const Dashboard = () => {
                       }
                     }
                     
-                    const displayName = profile?.prenom ? `${profile.prenom}${profile.nom ? ` ${profile.nom}` : ""}` : "";
-                    return displayName ? `${greeting} ${displayName} ! ${emoji}` : `${greeting} ! ${emoji}`;
+                    return `${greeting} ${profile?.prenom || ""} ${profile?.nom || ""} ! ${emoji}`;
                   })()}
                 </h1>
                 <p className="text-sm md:text-xl text-white/50 mb-8 md:mb-12 font-medium">
