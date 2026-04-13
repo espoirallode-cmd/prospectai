@@ -60,6 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const handleUserSignIn = async (user: User) => {
+    // 1. Check for pending names from Login (localStorage)
     const pendingPrenom = localStorage.getItem('pending_prenom');
     const pendingNom = localStorage.getItem('pending_nom');
 
@@ -69,96 +70,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         prenom: pendingPrenom,
         nom: pendingNom,
         email: user.email,
-        plan: 'freemium',
-        created_at: new Date().toISOString()
+        plan: 'freemium'
       });
       localStorage.removeItem('pending_prenom');
       localStorage.removeItem('pending_nom');
     }
 
-    const { data, error } = await supabase
+    // 2. Load profile from Supabase (created by trigger if new)
+    const { data: profile } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', user.id)
       .single();
 
-    if (error && error.code === 'PGRST116') {
-      // Profile doesn't exist, create it
-      // For Google OAuth, we get info from metadata
-      const metadata = user.user_metadata;
-      const firstName = metadata?.given_name || metadata?.name?.split(' ')?.[0] || localStorage.getItem('temp_firstName') || '';
-      const lastName = metadata?.family_name || metadata?.name?.split(' ')?.slice(1).join(' ') || localStorage.getItem('temp_lastName') || '';
-      const photoUrl = metadata?.avatar_url || metadata?.picture || '';
-      
-      const { data: newProfile, error: createError } = await supabase
-        .from('profiles')
-        .insert([
-          { 
-            id: user.id, 
-            prenom: firstName, 
-            nom: lastName, 
-            email: user.email,
-            photo_url: photoUrl,
-            competences: [],
-            ville: "",
-            pays: "",
-            rayon_km: 10,
-            tarif_fcfa: 0,
-            plan: 'freemium',
-            created_at: new Date().toISOString()
-          }
-        ])
-        .select()
-        .single();
-
-      if (createError) {
-        console.error('Error creating profile:', createError);
-      } else {
-        setProfile(newProfile);
-        // Clear temp storage
-        localStorage.removeItem('temp_firstName');
-        localStorage.removeItem('temp_lastName');
-        localStorage.removeItem('temp_email');
-      }
-    } else if (data) {
-      // Profile exists, check if we need to update info from metadata or temp storage
-      const metadata = user.user_metadata;
-      const firstName = metadata?.given_name || metadata?.name?.split(' ')?.[0] || localStorage.getItem('temp_firstName');
-      const lastName = metadata?.family_name || metadata?.name?.split(' ')?.slice(1).join(' ') || localStorage.getItem('temp_lastName');
-      const photoUrl = metadata?.avatar_url || metadata?.picture;
-
-      const updates: any = {};
-      let needsUpdate = false;
-
-      if (firstName && !data.prenom) {
-        updates.prenom = firstName;
-        data.prenom = firstName;
-        needsUpdate = true;
-      }
-      if (lastName && !data.nom) {
-        updates.nom = lastName;
-        data.nom = lastName;
-        needsUpdate = true;
-      }
-      if (photoUrl && data.photo_url !== photoUrl) {
-        updates.photo_url = photoUrl;
-        data.photo_url = photoUrl;
-        needsUpdate = true;
-      }
-
-      if (needsUpdate) {
-        await supabase
-          .from('profiles')
-          .update(updates)
-          .eq('id', user.id);
-        
-        // Clear temp storage if we used it
-        localStorage.removeItem('temp_firstName');
-        localStorage.removeItem('temp_lastName');
-      }
-
-      setProfile(data);
+    if (profile) {
+      setProfile(profile);
     }
+    
     setLoading(false);
   };
 
