@@ -44,7 +44,13 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.firstName || !formData.lastName || !formData.email) {
-      toast.error("Veuillez remplir tous les champs");
+      toast.error("Tous les champs sont obligatoires");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Email invalide");
       return;
     }
     
@@ -86,7 +92,7 @@ const Login = () => {
             
             <h1 className="text-2xl font-bold text-[#0a0a0f] mb-2 text-center">Se connecter</h1>
             <p className="text-sm text-gray-500 text-center">
-              Recois un lien magique de connexion par email
+              Connecte-toi pour trouver tes clients
             </p>
           </div>
 
@@ -157,7 +163,7 @@ const Login = () => {
               disabled={loading}
               className="w-full h-12 rounded-[12px] bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:opacity-90 text-white font-bold text-base shadow-lg shadow-indigo-500/30 transition-all mt-4 border-0"
             >
-              {loading ? "Chargement..." : "Envoyer le lien magique"}
+              {loading ? "Chargement..." : "Se connecter"}
             </Button>
           </form>
 
