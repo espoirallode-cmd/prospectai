@@ -60,6 +60,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const handleUserSignIn = async (user: User) => {
+    const pendingPrenom = localStorage.getItem('pending_prenom');
+    const pendingNom = localStorage.getItem('pending_nom');
+
+    if (pendingPrenom && pendingNom) {
+      await supabase.from('profiles').upsert({
+        id: user.id,
+        prenom: pendingPrenom,
+        nom: pendingNom,
+        email: user.email,
+        plan: 'freemium',
+        created_at: new Date().toISOString()
+      });
+      localStorage.removeItem('pending_prenom');
+      localStorage.removeItem('pending_nom');
+    }
+
     const { data, error } = await supabase
       .from('profiles')
       .select('*')

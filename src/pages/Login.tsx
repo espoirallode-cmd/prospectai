@@ -57,8 +57,8 @@ const Login = () => {
     setLoading(true);
     try {
       // Store names in localStorage to retrieve them after the magic link redirect
-      localStorage.setItem("temp_firstName", formData.firstName);
-      localStorage.setItem("temp_lastName", formData.lastName);
+      localStorage.setItem("pending_prenom", formData.firstName);
+      localStorage.setItem("pending_nom", formData.lastName);
       localStorage.setItem("temp_email", formData.email);
 
       const { error } = await supabase.auth.signInWithOtp({

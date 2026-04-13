@@ -98,7 +98,7 @@ const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactN
   const { profile, signOut } = useAuth();
 
   const user = {
-    firstName: profile?.prenom || "Freelance",
+    firstName: profile?.prenom || "",
     lastName: profile?.nom || "",
     email: profile?.email || "",
     photo: profile?.photo_url || null
