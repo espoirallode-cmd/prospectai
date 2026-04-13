@@ -105,16 +105,42 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         localStorage.removeItem('temp_email');
       }
     } else if (data) {
-      // Update photo if it's missing or changed and we have a new one from Google
+      // Profile exists, check if we need to update info from metadata or temp storage
       const metadata = user.user_metadata;
+      const firstName = metadata?.given_name || metadata?.name?.split(' ')?.[0] || localStorage.getItem('temp_firstName');
+      const lastName = metadata?.family_name || metadata?.name?.split(' ')?.slice(1).join(' ') || localStorage.getItem('temp_lastName');
       const photoUrl = metadata?.avatar_url || metadata?.picture;
+
+      const updates: any = {};
+      let needsUpdate = false;
+
+      if (firstName && !data.prenom) {
+        updates.prenom = firstName;
+        data.prenom = firstName;
+        needsUpdate = true;
+      }
+      if (lastName && !data.nom) {
+        updates.nom = lastName;
+        data.nom = lastName;
+        needsUpdate = true;
+      }
       if (photoUrl && data.photo_url !== photoUrl) {
+        updates.photo_url = photoUrl;
+        data.photo_url = photoUrl;
+        needsUpdate = true;
+      }
+
+      if (needsUpdate) {
         await supabase
           .from('profiles')
-          .update({ photo_url: photoUrl })
+          .update(updates)
           .eq('id', user.id);
-        data.photo_url = photoUrl;
+        
+        // Clear temp storage if we used it
+        localStorage.removeItem('temp_firstName');
+        localStorage.removeItem('temp_lastName');
       }
+
       setProfile(data);
     }
     setLoading(false);

@@ -47,22 +47,43 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/lib/supabase";
+
 const SettingsView = () => {
+  const { profile, user: authUser } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
-    firstName: localStorage.getItem("user_firstName") || "",
-    lastName: localStorage.getItem("user_lastName") || "",
-    email: localStorage.getItem("user_email") || "",
-    skills: JSON.parse(localStorage.getItem("user_skills") || '["Développeur Web", "Designer UI/UX"]'),
-    photo: localStorage.getItem("user_photo") || null,
-    plan: "Freemium",
-    notifications: JSON.parse(localStorage.getItem("user_notifications") || JSON.stringify({
+    firstName: profile?.prenom || "",
+    lastName: profile?.nom || "",
+    email: profile?.email || "",
+    skills: profile?.competences || ["Développeur Web", "Designer UI/UX"],
+    photo: profile?.photo_url || null,
+    plan: profile?.plan || "Freemium",
+    notifications: {
       urgents: true,
       reminders: false,
       email: true,
       app: true,
       delay: "2j"
-    }))
+    }
   });
+
+  useEffect(() => {
+    if (profile) {
+      setUser(prev => ({
+        ...prev,
+        firstName: profile.prenom || "",
+        lastName: profile.nom || "",
+        email: profile.email || "",
+        skills: profile.competences && profile.competences.length > 0 
+          ? profile.competences 
+          : ["Développeur Web", "Designer UI/UX"],
+        photo: profile.photo_url || null,
+        plan: profile.plan || "Freemium",
+      }));
+    }
+  }, [profile]);
 
   const [sectors, setSectors] = useState<string[]>(["Santé", "Immobilier"]);
   const [excludeTags, setExcludeTags] = useState<string[]>(["Assurance", "Trading"]);
@@ -70,23 +91,29 @@ const SettingsView = () => {
   const [newExclude, setNewExclude] = useState("");
   const [isSaving, setIsSaving] = useState<"profile" | "notifications" | null>(null);
 
-  const handleSave = (section: "profile" | "notifications") => {
+  const handleSave = async (section: "profile" | "notifications") => {
+    if (!authUser) return;
     setIsSaving(section);
-    setTimeout(() => {
-      localStorage.setItem("user_firstName", user.firstName);
-      localStorage.setItem("user_lastName", user.lastName);
-      localStorage.setItem("user_email", user.email);
-      localStorage.setItem("user_skills", JSON.stringify(user.skills));
-      localStorage.setItem("user_notifications", JSON.stringify(user.notifications));
-      if (user.photo) {
-        localStorage.setItem("user_photo", user.photo);
-      } else {
-        localStorage.removeItem("user_photo");
-      }
-      
-      setIsSaving(null);
+    
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({
+          prenom: user.firstName,
+          nom: user.lastName,
+          email: user.email,
+          competences: user.skills,
+          photo_url: user.photo,
+        })
+        .eq('id', authUser.id);
+
+      if (error) throw error;
       toast.success("✅ Modifications enregistrées !");
-    }, 800);
+    } catch (error: any) {
+      toast.error(error.message || "Erreur lors de la sauvegarde");
+    } finally {
+      setIsSaving(null);
+    }
   };
 
   const updateNotif = (key: string, value: any) => {
@@ -107,8 +134,7 @@ const SettingsView = () => {
       reader.onloadend = () => {
         const base64String = reader.result as string;
         setUser({ ...user, photo: base64String });
-        localStorage.setItem("user_photo", base64String);
-        toast.success("Photo de profil mise à jour !");
+        toast.success("Photo de profil mise à jour localement. N'oubliez pas d'enregistrer !");
       };
       reader.readAsDataURL(file);
     }
@@ -116,8 +142,7 @@ const SettingsView = () => {
 
   const deletePhoto = () => {
     setUser({ ...user, photo: null });
-    localStorage.removeItem("user_photo");
-    toast.success("Photo de profil supprimée.");
+    toast.success("Photo de profil supprimée localement. N'oubliez pas d'enregistrer !");
   };
 
   const addTag = (type: "skill" | "exclude") => {

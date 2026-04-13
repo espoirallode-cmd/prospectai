@@ -1,4 +1,5 @@
 import { ReactNode, useState, useEffect } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Sidebar,
@@ -90,33 +91,28 @@ function AppSidebar({ hideDashboard }: { hideDashboard?: boolean }) {
   );
 }
 
+
 const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactNode; onBack?: () => void; hideDashboard?: boolean }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [user, setUser] = useState({ firstName: "Freelance", lastName: "", email: "", photo: null as string | null });
+  const { profile, signOut } = useAuth();
 
-  useEffect(() => {
-    const firstName = localStorage.getItem("user_firstName");
-    const lastName = localStorage.getItem("user_lastName");
-    const email = localStorage.getItem("user_email");
-    const photo = localStorage.getItem("user_photo");
-    if (firstName || email) {
-      setUser({ 
-        firstName: firstName || "Freelance", 
-        lastName: lastName || "", 
-        email: email || "fidelleallode0@gmail.com", 
-        photo 
-      });
-    }
-  }, []);
+  const user = {
+    firstName: profile?.prenom || "Freelance",
+    lastName: profile?.nom || "",
+    email: profile?.email || "",
+    photo: profile?.photo_url || null
+  };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     const toastId = toast.loading("Déconnexion en cours...");
-    // On ne supprime plus les données du localStorage pour conserver les paramètres
-    setTimeout(() => {
+    try {
+      await signOut();
       toast.success("Déconnecté", { id: toastId });
       navigate("/");
-    }, 1000);
+    } catch (error) {
+      toast.error("Erreur lors de la déconnexion", { id: toastId });
+    }
   };
 
   const initials = (user.firstName[0] + (user.lastName[0] || "")).toUpperCase();
