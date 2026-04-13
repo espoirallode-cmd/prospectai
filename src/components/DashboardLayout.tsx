@@ -119,7 +119,7 @@ const DashboardLayout = ({ children, onBack, hideDashboard }: { children: ReactN
 
   return (
     <SidebarProvider>
-      <div className="flex md:min-h-screen w-full fixed inset-0 md:relative overflow-hidden md:overflow-visible">
+      <div className="flex flex-col md:flex-row min-h-screen w-full relative">
         <AppSidebar hideDashboard={hideDashboard} />
         <div className="flex flex-1 flex-col overflow-hidden text-white/90">
           {/* Top bar with Glacial Effect and Matching Color */}
