@@ -70,8 +70,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Profile doesn't exist, create it
       // For Google OAuth, we get info from metadata
       const metadata = user.user_metadata;
-      const firstName = metadata?.given_name || metadata?.name?.split(' ')[0] || localStorage.getItem('temp_firstName') || '';
-      const lastName = metadata?.family_name || metadata?.name?.split(' ').slice(1).join(' ') || localStorage.getItem('temp_lastName') || '';
+      const firstName = metadata?.given_name || metadata?.name?.split(' ')?.[0] || localStorage.getItem('temp_firstName') || '';
+      const lastName = metadata?.family_name || metadata?.name?.split(' ')?.slice(1).join(' ') || localStorage.getItem('temp_lastName') || '';
       const photoUrl = metadata?.avatar_url || metadata?.picture || '';
       
       const { data: newProfile, error: createError } = await supabase
